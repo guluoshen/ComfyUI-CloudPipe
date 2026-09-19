@@ -8,9 +8,9 @@
   <rect x="40" y="80" width="380" height="520" fill="#252526" stroke="#3a3a3a" rx="8"/>
   <text x="230" y="104" fill="#4ec9b0" font-size="15" text-anchor="middle" font-weight="bold">🖥️ 本机 (Local)</text>
 
-  <!-- 本机节点: AnimaPipePack -->
+  <!-- 本机节点: Easy-Use pipeIn（管道打包） -->
   <rect x="70" y="130" width="320" height="70" fill="#2d2d30" stroke="#6a9955" rx="6"/>
-  <text x="230" y="155" fill="#fff" font-size="13" text-anchor="middle" font-weight="bold">AnimaPipePack</text>
+  <text x="230" y="155" fill="#fff" font-size="13" text-anchor="middle" font-weight="bold">Easy-Use pipeIn</text>
   <text x="230" y="176" fill="#bbb" font-size="11" text-anchor="middle">输入: 模型/CLIP/VAE/提示词</text>
   <text x="230" y="192" fill="#bbb" font-size="11" text-anchor="middle">输出: PIPE_LINE</text>
 

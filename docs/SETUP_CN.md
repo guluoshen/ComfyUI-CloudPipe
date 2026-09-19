@@ -38,7 +38,7 @@
 ### 🔄 A·云端协作（CloudPipeAsync）—— 本机用
 
 ```
-输入 : 管道 (PIPE_LINE)   ← 接 AnimaPipePack 等打包工具
+输入 : 管道 (PIPE_LINE)   ← 接 Easy-Use pipeIn 等打包节点
 参数 : 步骤 / CFG / 采样器 / 调度器 / 降噪 / 种子 / 图像输出
 输出 : 管道 (PIPE_LINE)   → 接 VAEDecode
 ```

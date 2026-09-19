@@ -219,7 +219,7 @@ class CloudPipeBatchAsync:
             raise Exception("[A] 输入 pipe 非 dict（系统默认仅支持单条 pipe）")
         pipes = [管道]
         if not pipes:
-            raise Exception("[A·批量] 没有收到任何管道（上游 CR Prompt List/AnimaPipePack 无输出？）")
+            raise Exception("[A·批量] 没有收到任何管道（上游 CR Prompt List / pipeIn 等打包节点无输出？）")
         for i, p in enumerate(pipes):
             if not isinstance(p, dict) or p.get("positive") is None \
                     or p.get("negative") is None or p.get("samples") is None:

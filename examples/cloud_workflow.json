@@ -6,73 +6,345 @@
       "id": 1,
       "type": "UNETLoader",
       "inputs": [
-        {"name": "unet_name", "type": "COMBO", "widget": {"name": "unet_name"}, "link": null},
-        {"name": "weight_dtype", "type": "COMBO", "widget": {"name": "weight_dtype"}, "link": null}
+        {
+          "name": "unet_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "unet_name"
+          },
+          "link": null
+        },
+        {
+          "name": "weight_dtype",
+          "type": "COMBO",
+          "widget": {
+            "name": "weight_dtype"
+          },
+          "link": null
+        }
       ],
-      "outputs": [{"name": "MODEL", "type": "MODEL", "links": [2]}],
-      "properties": {"Node name for S&R": "UNETLoader"},
-      "widgets_values": ["anima/Anima-2.9B-preview-v1.safetensors", "default"]
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UNETLoader"
+      },
+      "widgets_values": [
+        "Anima-2.9B-preview-v1.safetensors",
+        "default"
+      ],
+      "mode": 0,
+      "pos": [
+        40.0,
+        140.0
+      ],
+      "size": [
+        330.0,
+        100.0
+      ]
     },
     {
       "id": 2,
       "type": "CLIPLoader",
       "inputs": [
-        {"name": "clip_name", "type": "COMBO", "widget": {"name": "clip_name"}, "link": null},
-        {"name": "type", "type": "COMBO", "widget": {"name": "type"}, "link": null},
-        {"name": "device", "type": "COMBO", "widget": {"name": "device"}, "link": null}
+        {
+          "name": "clip_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "clip_name"
+          },
+          "link": null
+        },
+        {
+          "name": "type",
+          "type": "COMBO",
+          "widget": {
+            "name": "type"
+          },
+          "link": null
+        },
+        {
+          "name": "device",
+          "type": "COMBO",
+          "widget": {
+            "name": "device"
+          },
+          "link": null
+        }
       ],
-      "outputs": [{"name": "CLIP", "type": "CLIP", "links": [3]}],
-      "properties": {"Node name for S&R": "CLIPLoader"},
-      "widgets_values": ["anima/qwen_3_06b_base.safetensors", "qwen_image", "default"]
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "qwen_3_06b_base.safetensors",
+        "stable_diffusion",
+        "default"
+      ],
+      "mode": 0,
+      "pos": [
+        40.0,
+        380.0
+      ],
+      "size": [
+        330.0,
+        130.0
+      ]
     },
     {
       "id": 3,
       "type": "CloudLoadInputs",
       "inputs": [
-        {"name": "model", "type": "MODEL", "link": 2},
-        {"name": "clip", "type": "CLIP", "link": 3},
-        {"name": "管道", "type": "STRING", "widget": {"name": "管道"}, "link": null}
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 2
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3
+        },
+        {
+          "name": "管道",
+          "type": "STRING",
+          "widget": {
+            "name": "管道"
+          },
+          "link": null
+        }
       ],
-      "outputs": [{"name": "管道", "type": "PIPE_LINE", "links": [4]}],
-      "properties": {"Node name for S&R": "CloudLoadInputs"},
-      "widgets_values": ["default"]
+      "outputs": [
+        {
+          "name": "管道",
+          "type": "PIPE_LINE",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CloudLoadInputs"
+      },
+      "widgets_values": [
+        "default"
+      ],
+      "mode": 0,
+      "pos": [
+        460.0,
+        140.0
+      ],
+      "size": [
+        300.0,
+        130.0
+      ],
+      "title": "B·云端接收（model + clip + 条件/画布）"
     },
     {
       "id": 4,
       "type": "easy fullkSampler",
       "inputs": [
-        {"name": "pipe", "type": "PIPE_LINE", "link": 4},
-        {"name": "steps", "type": "INT", "widget": {"name": "steps"}, "link": null},
-        {"name": "cfg", "type": "FLOAT", "widget": {"name": "cfg"}, "link": null},
-        {"name": "sampler_name", "type": "COMBO", "widget": {"name": "sampler_name"}, "link": null},
-        {"name": "scheduler", "type": "COMBO", "widget": {"name": "scheduler"}, "link": null},
-        {"name": "denoise", "type": "FLOAT", "widget": {"name": "denoise"}, "link": null},
-        {"name": "seed", "type": "INT", "widget": {"name": "seed"}, "link": null},
-        {"name": "image_output", "type": "COMBO", "widget": {"name": "image_output"}, "link": null},
-        {"name": "link_id", "type": "INT", "widget": {"name": "link_id"}, "link": null},
-        {"name": "save_prefix", "type": "STRING", "widget": {"name": "save_prefix"}, "link": null}
+        {
+          "name": "pipe",
+          "type": "PIPE_LINE",
+          "link": 4
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "widget": {
+            "name": "steps"
+          },
+          "link": null
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "widget": {
+            "name": "cfg"
+          },
+          "link": null
+        },
+        {
+          "name": "sampler_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "sampler_name"
+          },
+          "link": null
+        },
+        {
+          "name": "scheduler",
+          "type": "COMBO",
+          "widget": {
+            "name": "scheduler"
+          },
+          "link": null
+        },
+        {
+          "name": "denoise",
+          "type": "FLOAT",
+          "widget": {
+            "name": "denoise"
+          },
+          "link": null
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": null
+        },
+        {
+          "name": "image_output",
+          "type": "COMBO",
+          "widget": {
+            "name": "image_output"
+          },
+          "link": null
+        },
+        {
+          "name": "link_id",
+          "type": "INT",
+          "widget": {
+            "name": "link_id"
+          },
+          "link": null
+        },
+        {
+          "name": "save_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "save_prefix"
+          },
+          "link": null
+        }
       ],
-      "outputs": [{"name": "pipe", "type": "PIPE_LINE", "links": [5]}],
-      "properties": {"Node name for S&R": "easy fullkSampler"},
-      "widgets_values": [30, 4.0, "euler", "simple", 1.0, 0, "None", 0, "ComfyUI"]
+      "outputs": [
+        {
+          "name": "pipe",
+          "type": "PIPE_LINE",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "easy fullkSampler"
+      },
+      "widgets_values": [
+        30,
+        4.0,
+        "euler",
+        "simple",
+        1.0,
+        0,
+        "None",
+        0,
+        "ComfyUI"
+      ],
+      "mode": 0,
+      "pos": [
+        820.0,
+        140.0
+      ],
+      "size": [
+        320.0,
+        260.0
+      ]
     },
     {
       "id": 5,
       "type": "CloudSendBack",
       "inputs": [
-        {"name": "管道", "type": "PIPE_LINE", "link": 5},
-        {"name": "task_id", "type": "STRING", "widget": {"name": "task_id"}, "link": null}
+        {
+          "name": "管道",
+          "type": "PIPE_LINE",
+          "link": 5
+        },
+        {
+          "name": "task_id",
+          "type": "STRING",
+          "widget": {
+            "name": "task_id"
+          },
+          "link": null
+        }
       ],
-      "outputs": [{"name": "管道", "type": "PIPE_LINE", "links": []}],
-      "properties": {"Node name for S&R": "CloudSendBack"},
-      "widgets_values": ["default"]
+      "outputs": [
+        {
+          "name": "管道",
+          "type": "PIPE_LINE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CloudSendBack"
+      },
+      "widgets_values": [
+        "default"
+      ],
+      "mode": 0,
+      "pos": [
+        1180.0,
+        140.0
+      ],
+      "size": [
+        300.0,
+        110.0
+      ],
+      "title": "C·云端结果传回"
     }
   ],
   "links": [
-    [2, 1, 0, 3, 0, "MODEL"],
-    [3, 2, 0, 3, 1, "CLIP"],
-    [4, 3, 0, 4, 0, "PIPE_LINE"],
-    [5, 4, 0, 5, 0, "PIPE_LINE"]
+    [
+      2,
+      1,
+      0,
+      3,
+      0,
+      "MODEL"
+    ],
+    [
+      3,
+      2,
+      0,
+      3,
+      1,
+      "CLIP"
+    ],
+    [
+      4,
+      3,
+      0,
+      4,
+      0,
+      "PIPE_LINE"
+    ],
+    [
+      5,
+      4,
+      0,
+      5,
+      0,
+      "PIPE_LINE"
+    ]
   ],
   "groups": [],
   "config": {},

@@ -9,7 +9,7 @@
       "type": "VAELoader",
       "pos": [
         40.0,
-        1060.0
+        1080.0
       ],
       "size": [
         650,
@@ -71,7 +71,7 @@
       "type": "VAELoader",
       "pos": [
         40.0,
-        1180.0
+        1200.0
       ],
       "size": [
         640,
@@ -329,77 +329,11 @@
       }
     },
     {
-      "id": 9,
-      "type": "MiniMaxReferenceItem",
-      "pos": [
-        40.0,
-        800.0
-      ],
-      "size": [
-        270,
-        82
-      ],
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "label": "前序配置",
-          "localized_name": "前序配置",
-          "name": "前序配置",
-          "shape": 7,
-          "type": "STRING",
-          "link": null
-        },
-        {
-          "label": "参考维度",
-          "localized_name": "参考维度",
-          "name": "参考维度",
-          "type": "COMBO",
-          "widget": {
-            "name": "参考维度"
-          },
-          "link": null
-        },
-        {
-          "label": "序号",
-          "localized_name": "序号",
-          "name": "序号",
-          "type": "COMBO",
-          "widget": {
-            "name": "序号"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "label": "参考配置(JSON数组)",
-          "localized_name": "参考配置(JSON数组)",
-          "name": "参考配置(JSON数组)",
-          "type": "STRING",
-          "links": []
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "MiniMaxReferenceItem"
-      },
-      "widgets_values": [
-        "音频：人声/音色",
-        "1"
-      ],
-      "widgets_values_named": {
-        "参考维度": "音频：人声/音色",
-        "序号": "1"
-      },
-      "title": "参考配置（音频：人声/音色）"
-    },
-    {
       "id": 11,
       "type": "ComfyMathExpression",
       "pos": [
         420.0,
-        1360.0
+        980.0
       ],
       "size": [
         230,
@@ -485,7 +419,7 @@
       "type": "PrimitiveFloat",
       "pos": [
         420.0,
-        1260.0
+        860.0
       ],
       "size": [
         270,
@@ -532,7 +466,7 @@
       "type": "ResolutionSelector",
       "pos": [
         420.0,
-        1120.0
+        620.0
       ],
       "size": [
         270,
@@ -615,16 +549,14 @@
         "aspect_ratio": "1:1 (Square)",
         "megapixels": 0.5,
         "multiple": 32
-      },
-      "color": "#322",
-      "bgcolor": "#533"
+      }
     },
     {
       "id": 15,
       "type": "LoadImage",
       "pos": [
         40.0,
-        100.0
+        120.0
       ],
       "size": [
         289.2667114257813,
@@ -771,188 +703,11 @@
       "title": "参考音频（人声音色）"
     },
     {
-      "id": 19,
-      "type": "MiniMaxVideoDirector",
-      "pos": [
-        420.0,
-        100.0
-      ],
-      "size": [
-        400,
-        360
-      ],
-      "flags": {},
-      "order": 23,
-      "mode": 0,
-      "inputs": [
-        {
-          "label": "图片1",
-          "localized_name": "图片1",
-          "name": "图片1",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 17
-        },
-        {
-          "label": "图片2",
-          "localized_name": "图片2",
-          "name": "图片2",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": null
-        },
-        {
-          "label": "图片3",
-          "localized_name": "图片3",
-          "name": "图片3",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": null
-        },
-        {
-          "label": "视频1",
-          "localized_name": "视频1",
-          "name": "视频1",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": null
-        },
-        {
-          "label": "参考配置",
-          "localized_name": "参考配置",
-          "name": "参考配置",
-          "shape": 7,
-          "type": "STRING",
-          "link": 16
-        },
-        {
-          "label": "接口地址",
-          "localized_name": "接口地址",
-          "name": "接口地址",
-          "type": "STRING",
-          "widget": {
-            "name": "接口地址"
-          },
-          "link": null
-        },
-        {
-          "label": "模型精度",
-          "localized_name": "模型精度",
-          "name": "模型精度",
-          "type": "COMBO",
-          "widget": {
-            "name": "模型精度"
-          },
-          "link": null
-        },
-        {
-          "label": "模式",
-          "localized_name": "模式",
-          "name": "模式",
-          "type": "COMBO",
-          "widget": {
-            "name": "模式"
-          },
-          "link": null
-        },
-        {
-          "label": "文案模板",
-          "localized_name": "文案模板",
-          "name": "文案模板",
-          "type": "COMBO",
-          "widget": {
-            "name": "文案模板"
-          },
-          "link": null
-        },
-        {
-          "label": "故事指令",
-          "localized_name": "故事指令",
-          "name": "故事指令",
-          "type": "STRING",
-          "widget": {
-            "name": "故事指令"
-          },
-          "link": null
-        },
-        {
-          "label": "视频时长",
-          "localized_name": "视频时长",
-          "name": "视频时长",
-          "type": "FLOAT",
-          "widget": {
-            "name": "视频时长"
-          },
-          "link": 18
-        },
-        {
-          "label": "锁定提示词",
-          "localized_name": "锁定提示词",
-          "name": "锁定提示词",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "锁定提示词"
-          },
-          "link": null
-        },
-        {
-          "label": "保持运行",
-          "localized_name": "保持运行",
-          "name": "保持运行",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "保持运行"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "label": "MiniMax提示词",
-          "localized_name": "MiniMax提示词",
-          "name": "MiniMax提示词",
-          "type": "STRING",
-          "links": []
-        },
-        {
-          "label": "调试日志",
-          "localized_name": "调试日志",
-          "name": "调试日志",
-          "type": "STRING",
-          "links": []
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "MiniMaxVideoDirector"
-      },
-      "widgets_values": [
-        "http://127.0.0.1:8080",
-        "速度",
-        "首帧生成",
-        "文戏模式",
-        "",
-        5,
-        true,
-        false
-      ],
-      "widgets_values_named": {
-        "接口地址": "http://127.0.0.1:8080",
-        "模型精度": "速度",
-        "模式": "首帧生成",
-        "文案模板": "文戏模式",
-        "故事指令": "",
-        "视频时长": 5,
-        "锁定提示词": true,
-        "保持运行": false
-      },
-      "title": "MiniMax 视频导演（可选：一句话生成 H3 提示词）"
-    },
-    {
       "id": 20,
       "type": "PrimitiveStringMultiline",
       "pos": [
         420.0,
-        520.0
+        120.0
       ],
       "size": [
         444.2748092701054,
@@ -972,7 +727,7 @@
           "widget": {
             "name": "value"
           },
-          "link": 21
+          "link": null
         }
       ],
       "outputs": [
@@ -984,7 +739,7 @@
           "links": []
         }
       ],
-      "title": "提示词（手写；或由导演生成后自动覆盖）",
+      "title": "提示词（手写：H3 提示词正文）",
       "properties": {
         "Node name for S&R": "PrimitiveStringMultiline",
         "cnr_id": "comfy-core",
@@ -999,20 +754,18 @@
         }
       },
       "widgets_values": [
-        "integrated_multimodal_description: [Shot 1] at 00:00.000 — fixed single-shot, no camera movement. The character from <Picture 1> stands in a bright room beside a window, holding a folded letter and looking down at it with a faint smile; soft daylight, slight hair movement, plain background.\n(Speaker 1) says in Chinese: 「我们以后再见。」\n\n【示例文本，请替换】上方接「MiniMax视频导演」时会由导演自动覆盖本行；若要手写，断开导演连线即可。"
+        "integrated_multimodal_description: [Shot 1] at 00:00.000 — fixed single-shot, no camera movement. The character from <Picture 1> stands in a bright room beside a window, holding a folded letter and looking down at it with a faint smile; soft daylight, slight hair movement, plain background.\n(Speaker 1) says in Chinese: 「我们以后再见。」\n\n【示例文本，请替换成你要拍的内容】"
       ],
       "widgets_values_named": {
-        "value": "integrated_multimodal_description: [Shot 1] at 00:00.000 — fixed single-shot, no camera movement. The character from <Picture 1> stands in a bright room beside a window, holding a folded letter and looking down at it with a faint smile; soft daylight, slight hair movement, plain background.\n(Speaker 1) says in Chinese: 「我们以后再见。」\n\n【示例文本，请替换】上方接「MiniMax视频导演」时会由导演自动覆盖本行；若要手写，断开导演连线即可。"
-      },
-      "color": "#322",
-      "bgcolor": "#533"
+        "value": "integrated_multimodal_description: [Shot 1] at 00:00.000 — fixed single-shot, no camera movement. The character from <Picture 1> stands in a bright room beside a window, holding a folded letter and looking down at it with a faint smile; soft daylight, slight hair movement, plain background.\n(Speaker 1) says in Chinese: 「我们以后再见。」\n\n【示例文本，请替换成你要拍的内容】"
+      }
     },
     {
       "id": 22,
       "type": "CLIPLoader",
       "pos": [
         40.0,
-        940.0
+        900.0
       ],
       "size": [
         640,
@@ -1101,7 +854,7 @@
       "type": "MiniMaxH3ReferenceToVideo",
       "pos": [
         900.0,
-        100.0
+        120.0
       ],
       "size": [
         410,
@@ -1493,20 +1246,20 @@
       "widgets_values": [
         326779663845019,
         "randomize",
-        12,
+        20,
         "res_multistep",
-        "beta",
+        "simple",
         1,
-        8
+        0
       ],
       "widgets_values_named": {
         "种子": 326779663845019,
         "control_after_generate": "randomize",
-        "步骤": 12,
+        "步骤": 20,
         "采样器": "res_multistep",
-        "调度器": "beta",
+        "调度器": "simple",
         "降噪": 1,
-        "切分步数": 8
+        "切分步数": 0
       },
       "title": "A·云端协作（上传 → 云端采样 → 回传）"
     },
@@ -1560,8 +1313,6 @@
         },
         "widget_ue_connectable": {}
       },
-      "color": "#223",
-      "bgcolor": "#335",
       "title": "拆分回传的 AV latent"
     }
   ],
@@ -1671,30 +1422,6 @@
       "INT"
     ],
     [
-      16,
-      9,
-      0,
-      19,
-      4,
-      "STRING"
-    ],
-    [
-      17,
-      15,
-      0,
-      19,
-      0,
-      "IMAGE"
-    ],
-    [
-      18,
-      13,
-      0,
-      19,
-      10,
-      "FLOAT"
-    ],
-    [
       19,
       16,
       0,
@@ -1709,14 +1436,6 @@
       23,
       0,
       "CLIP"
-    ],
-    [
-      21,
-      19,
-      0,
-      20,
-      0,
-      "STRING"
     ],
     [
       25,

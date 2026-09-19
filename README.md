@@ -46,7 +46,7 @@
 - [ ] ComfyUI（能装自定义节点）
 - [ ] 能执行 `pip install`（用启动器自带的 python 也行）
 - [ ] 云实例的 SSH 信息：**主机地址、端口、用户名、密码**
-- [ ] 跑图片链路才需要：`AnimaPipePack` 之类的管道打包节点（A 节点的输入是 `PIPE_LINE`）
+- [ ] 跑图片链路才需要：[ComfyUI-Easy-Use](https://github.com/yolain/ComfyUI-Easy-Use)（提供 `pipeIn` / `pipeOut` 管道打包拆包节点；A 节点的输入是 `PIPE_LINE`）
 
 **云端 GPU 实例（Cloud）**
 - [ ] 能开机、能 SSH 的 GPU 实例（Seetacloud / AutoDL / 其他平台均可）
@@ -64,8 +64,8 @@
 | 路线 | 用途 | 额外前置 | 建议 |
 |---|---|---|---|
 | **① 链路自检**（建议先做） | 不加载模型，只验证「上传 → 云端 → 回传」通不通 | 两边都装本插件即可 | **装完先跑这条，2 分钟排掉 90% 的接线问题** |
-| ② 图片采样上云 | Anima 等图像模型 | AnimaPipePack + Easy-Use 的 `easy fullkSampler` | 见 §4 |
-| ③ H3 视频上云 | 参考图/音频 → 视频 | H3 模型全家桶（UNET + LoRA + VAE + 上采样器） | 见 §7 |
+| ② 图片采样上云 | Anima 等图像模型 | Easy-Use（`pipeIn` / `pipeOut` + `easy fullkSampler`） | 见 §4 |
+| ③ H3 视频上云 | 参考图/音频 → 视频 | H3 ref2va UNET + 视频/音频 VAE（云端只需 UNET） | 见 §7 |
 
 ---
 
@@ -131,7 +131,7 @@ pip install -r ComfyUI-CloudPipe/requirements.txt
 **本机**（编辑提示词、调参数、解码出图）
 
 ```text
-[AnimaPipePack] → [🔄 A·云端协作] → [VAEDecode] → [SaveImage]
+[CLIPTextEncode×2 + VAELoader + EmptyLatent] → [easy pipeIn] → [🔄 A·云端协作] → [easy pipeOut] → [VAEDecode] → [SaveImage]
                         ↑ 步骤 / CFG / 采样器 / 种子 在本节点上调
 ```
 
@@ -218,46 +218,59 @@ B 节点的「管道」是 STRING（任务号），由 A 自动传入，不需�
 [.pt 回传] → [VAEDecode]（视频 VAE 解码）→ [VAEDecodeAudio]（音频 VAE 解码）→ [CreateVideo] → [SaveVideo]
 ```
 
-**云端常驻链**：
+**云端常驻链**（8 节点，以 ComfyUI 官方模板 `video_minimax_h3_r2v` 的采样链为底稿）：
 
 ```text
-[📥 B·H3云端接收+透传]（管道 STRING）
-   → [UNETLoader]（ref2va UNET，约 20GB）
-   → [LoraLoaderModelOnly]（minimax_h3_fl2v_turbo_8step LoRA）
-   → [ModelAttentionBackend]
-   → [MiniMax H3 FirstBlockCache]（首块缓存加速）
-   → [SAGE注意力补丁KJ]（SAGE Attention 补丁）
-   → [Model Patch Torch Settings]
-   → [BasicGuider] / [SamplerCustomAdvanced]（真 latent 二采）
-   → [📤 C·H3云端AV Latent回传] →(.pt 回传)→ 本机
+[📥 B·H3云端接收]（管道 STRING，从 .pt 读回 positive + 空 AV latent）
+   ├─ positive ───────────────→ [BasicGuider].conditioning
+   └─ AV latent ──────────────→ [SamplerCustomAdvanced].latent_image
+[UNETLoader]（ref2va UNET，约 20GB）
+   ├──────────────────────────→ [BasicGuider].model
+   └──────────────────────────→ [BasicScheduler].model
+[BasicScheduler] ───SIGMAS───→ [SamplerCustomAdvanced].sigmas
+[RandomNoise] ─────NOISE─────→ [SamplerCustomAdvanced].noise
+[KSamplerSelect] ──SAMPLER───→ [SamplerCustomAdvanced].sampler
+[BasicGuider] ─────GUIDER────→ [SamplerCustomAdvanced].guider
+[SamplerCustomAdvanced].output ──LATENT──→ [📤 C·H3云端结果回传] →(.pt 回传)→ 本机
 ```
 
-**云端前置依赖清单**：
+**云端前置依赖清单**（示例只需这些）：
 
-- ref2va UNET（约 20GB）
-- `minimax_h3_fl2v_turbo_8step` LoRA（turbo 8 步加速）
-- `MinimaxH3LatentUpscalerNode3D` 节点 + 约 691MB bf16（bfloat16，16 位浮点）模型（latent 上采样器）
-- H3 视频 / 音频 VAE（变分自编码器，编解码潜空间）
-- 注：CLIP（qwen3vl，文本编码器）本机端需要，云端 B 端不需要（由 A 节点随 `positive` 一并上传）
+- **ref2va UNET**（约 20GB，Comfy-Org/MiniMax-H3 官方便携版）—— 云端唯一必需的大模型
+- 注：CLIP（qwen3vl，文本编码器）本机端需要，云端不需要（由 A 节点随 `positive` 一并上传，省约 27GB）
+- 注：视频 / 音频 VAE 的**解码在本机**，云端采样链里没有 VAEDecode，因此云端不需要 VAE
+- 注：加速件（turbo LoRA / SAGE Attention / FirstBlockCache / attention backend / FP16 累积）与
+  latent 上采样二采（`MinimaxH3LatentUpscalerNode3D` + 691MB 模型）**都不在示例里** ——
+  少一个模型、或显卡架构不匹配就跑不动，对"开箱即用"是负担。要加速请自行把节点加回
 
 **与图片（Anima）方案的区别**：
 
 - H3 三件套是**独立新增**，不修改 Anima 的 A/B/C 节点（`CloudPipeAsync` / `CloudLoadInputs` / `CloudSendBack`）。
-- Anima 走 `easy fullkSampler`（Easy-Use 采样器）一步采样；H3 走原生 `MiniMaxH3ReferenceToVideo` + 自定义采样链（`BasicGuider` / `SamplerCustomAdvanced` 真 latent 二采），且 B 端跳过 CLIP 加载（省约 27GB 显存/内存）。
+- Anima 走 `easy fullkSampler`（Easy-Use 采样器）一步采样；H3 走原生 `MiniMaxH3ReferenceToVideo` + 自定义采样链（`BasicGuider` / `SamplerCustomAdvanced` 单次采样），且 B 端跳过 CLIP 加载（省约 27GB 显存/内存）。
 - 数据载体：Anima 上传 cond/latent（`.pt`）；H3 上传已编码的 `positive` + `LATENT`（空 AV latent，`.pt`），回传 `denoised` AV `LATENT`。
 
 **演示工作流**（`examples/` 目录）：
 
 | 文件 | 用途 | 节点数 | 运行位置 |
 |------|------|--------|----------|
-| `examples/h3_local_workflow.json` | **本机半场**：参考图/音频编码 → A 节点上传 → 云端回传后 `VAEDecode`(视频 VAE 解码) + `VAEDecodeAudio`(音频 VAE 解码) → `CreateVideo` → `SaveVideo`（可选：`MiniMaxVideoDirector` 一句话生成提示词） | 18 | 本机（含 `CloudPipeAsyncH3`） |
-| `examples/h3_cloud_workflow.json` | **云端半场**：`CloudLoadInputsH3`(B) 透传 → UNET/LoRA/采样链（含 `MinimaxH3LatentUpscalerNode3D` 真 latent 二采）→ `CloudSendBackH3`(C) 回传 | 19 | 云端实例（无 CLIP 依赖） |
+| `examples/local_workflow.json` | **本机半场（图片 / Anima）**：CLIP + VAE 加载 → 正负提示词（`CLIPTextEncode`）→ 空 latent → `easy pipeIn` 打包 → 🔄 A 节点上传 → 云端回传后 `easy pipeOut` 拆包 → `VAEDecode` → `SaveImage` | 10 | 本机（含 `CloudPipeAsync`） |
+| `examples/cloud_workflow.json` | **云端半场（图片 / Anima）**：`UNETLoader` + `CLIPLoader` → 📥 B 节点组装管道 → `easy fullkSampler` 采样 → 📤 C 节点回传 | 5 | 云端实例 |
+| `examples/h3_local_workflow.json` | **本机半场**：参考图/音频编码 → A 节点上传 → 云端回传后 `VAEDecode`(视频 VAE 解码) + `VAEDecodeAudio`(音频 VAE 解码) → `CreateVideo` → `SaveVideo`（提示词直接手写） | 16 | 本机（含 `CloudPipeAsyncH3`） |
+| `examples/h3_cloud_workflow.json` | **云端半场**：`CloudLoadInputsH3`(B) 透传 → 官方采样链（`UNETLoader` → `BasicGuider` / `BasicScheduler` / `RandomNoise` / `KSamplerSelect` → `SamplerCustomAdvanced`）→ `CloudSendBackH3`(C) 回传 | 8 | 云端实例（无需 CLIP / LoRA / 上采样器） |
 
 **用法**：先把 `h3_cloud_workflow.json` 在云端 ComfyUI 打开，设好 B 节点的「管道」值（与本地 A 节点约定一致，默认 `default`）；再把 `h3_local_workflow.json` 在本机打开，选好参考图/音频即可。**两端「管道」值必须相同才能配对。**
 
-> 本地半场已按 ComfyUI 官方模板 `video_minimax_h3_r2v` 对齐精简到 **18 节点**（相比初版删掉了 4 个说明 Note、2 个调试 `ShowText`、翻译支线 `PromptTranslate`、`Reroute` 与重复的 `PrimitiveFloat`；所有节点均为启用状态）。
-> 提示词两条路：接 `MiniMaxVideoDirector`（一句话由本地 LLM 生成，会覆盖手写值），或断开那条连线直接在「提示词」节点手写。
-> 想再少两个节点，删掉 `MiniMaxVideoDirector` + `MiniMaxReferenceItem` 即为纯手写版（16 节点）。
+> 本地半场已按 ComfyUI 官方模板 `video_minimax_h3_r2v` 对齐精简到 **16 节点**，全部为启用状态，
+> 且**只依赖 ComfyUI 原生节点 + 本插件的 A 节点**（H3 三件套里只有 A 跑在本机）：
+> 初版的说明 Note、调试 `ShowText`、翻译支线 `PromptTranslate`、`Reroute`、重复 `PrimitiveFloat`，
+> 以及**非本仓库依赖**的 `MiniMaxVideoDirector` + `MiniMaxReferenceItem`（属于「自定义脚本」插件包，
+> 别人装了本仓库也不会出现）已全部移除。提示词直接写在「提示词」节点（`PrimitiveStringMultiline`）里。
+>
+> 云端半场同样按官方模板 `video_minimax_h3_r2v` 的采样链重建为 **8 节点**：初版带着 5 个加速件与
+> 真 latent 二采共 19 节点，别人缺一个模型（turbo LoRA / 691MB 上采样器）或显卡架构不匹配就跑不动。
+> 步数 / 采样器 / 调度器 / 种子由本机 A 节点注入（改 A 节点滑块，云端跟着变），示例里的
+> `simple / 20 步` 只是官方默认值。想在云端二采或加 SAGE / FirstBlockCache 加速，把对应节点自己加回即可：
+> A 节点按 `class_type` 匹配注入，**找不到就跳过、不会报错**。
 
 ---
 
@@ -317,7 +330,7 @@ Why a self-managed tunnel: platform "console tunnels" only forward ports; you st
 - [ ] ComfyUI (able to load custom nodes)
 - [ ] `pip install` available (a portable-launcher python is fine)
 - [ ] SSH access to the cloud: **host, port, user, password**
-- [ ] For the image route only: a pipe-packing node such as AnimaPipePack (node A expects `PIPE_LINE`)
+- [ ] For the image route only: [ComfyUI-Easy-Use](https://github.com/yolain/ComfyUI-Easy-Use) (`pipeIn` / `pipeOut` — node A expects `PIPE_LINE`)
 
 **Cloud GPU instance**
 - [ ] A GPU instance you can start and SSH into (Seetacloud / AutoDL / others)
@@ -331,7 +344,7 @@ Why a self-managed tunnel: platform "console tunnels" only forward ports; you st
 | Route | Purpose | Extra prerequisites |
 |---|---|---|
 | **① Link self-test** (do this first) | Verify upload → cloud → fetch with no model loading | Both sides have this pack |
-| ② Image sampling | Anima and similar | AnimaPipePack + Easy-Use `easy fullkSampler` |
+| ② Image sampling | Anima and similar | Easy-Use (`pipeIn` / `pipeOut` + `easy fullkSampler`) |
 | ③ H3 video | Reference image/audio → video | Full H3 model set (see §7) |
 
 ### 3. Get it running in three steps
@@ -368,7 +381,7 @@ Restart ComfyUI. ✅ **Success**: the `☁️ Cloud Ops` node appears; the start
 
 ### 4. Image route wiring
 
-Local: `[AnimaPipePack] → [🔄 A·Cloud Pipe] → [VAEDecode] → [SaveImage]` (steps/CFG/sampler/seed are set on node A).
+Local: `[CLIPTextEncode×2 + VAELoader + EmptyLatent] → [easy pipeIn] → [🔄 A·Cloud Pipe] → [easy pipeOut] → [VAEDecode] → [SaveImage]` (steps/CFG/sampler/seed are set on node A).
 
 Cloud (build once, keep running): `[📥 B·Cloud Load] → [easy fullkSampler] → [📤 C·Send Back]` (model/clip from cloud loaders).
 
@@ -403,7 +416,7 @@ Wiring, cloud prerequisites and the two example workflows are documented in the 
 
 - Local: `[LoadImage]/[LoadAudio] → [MiniMaxH3ReferenceToVideo] → [🔄 A·H3]  → (.pt upload) → cloud`
 - Local tail: `(.pt back) → [VAEDecode] + [VAEDecodeAudio] → [CreateVideo] → [SaveVideo]`
-- Cloud: `[📥 B·H3] → UNET + LoRA + sampling chain → [📤 C·H3] → (.pt back) → local`
+- Cloud: `[📥 B·H3] → UNETLoader + official sampling chain (BasicGuider / BasicScheduler / RandomNoise / KSamplerSelect → SamplerCustomAdvanced) → [📤 C·H3] → (.pt back) → local`
 - Reference image pixels never leave the local machine; the cloud skips the ~27GB CLIP encoder.
 
 ### 8. Security & privacy

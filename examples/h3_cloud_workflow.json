@@ -1,156 +1,132 @@
 {
+  "id": null,
+  "revision": 0,
+  "last_node_id": 19,
+  "last_link_id": 9,
   "nodes": [
     {
-      "id": 1,
-      "type": "ApplyMiniMaxH3FirstBlockCache",
+      "id": 17,
+      "type": "CloudLoadInputsH3",
       "pos": [
-        -77.4739618312512,
-        3063.0525033937606
+        40.0,
+        240.0
       ],
       "size": [
-        290.7251953125,
-        178
+        270,
+        78
       ],
       "flags": {},
-      "order": 27,
+      "order": 14,
       "mode": 0,
       "inputs": [
+        {
+          "localized_name": "管道",
+          "name": "管道",
+          "type": "STRING",
+          "widget": {
+            "name": "管道"
+          },
+          "link": null
+        },
         {
           "localized_name": "model",
           "name": "model",
           "type": "MODEL",
-          "link": 25
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "positive",
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            1
+          ]
         },
         {
-          "localized_name": "mode",
-          "name": "mode",
+          "localized_name": "Latent",
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CloudLoadInputsH3"
+      },
+      "widgets_values": [
+        "default"
+      ],
+      "widgets_values_named": {
+        "管道": "default"
+      },
+      "title": "B·H3云端接收（读回 positive + 空 AV latent）"
+    },
+    {
+      "id": 12,
+      "type": "UNETLoader",
+      "pos": [
+        40.0,
+        520.0
+      ],
+      "size": [
+        229.07594822693,
+        89.02390354614272
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "unet_name",
+          "localized_name": "UNet名称",
+          "name": "unet_name",
           "type": "COMBO",
           "widget": {
-            "name": "mode"
+            "name": "unet_name"
           },
           "link": null
         },
         {
-          "localized_name": "threshold",
-          "name": "threshold",
-          "type": "FLOAT",
+          "label": "weight_dtype",
+          "localized_name": "数据类型",
+          "name": "weight_dtype",
+          "type": "COMBO",
           "widget": {
-            "name": "threshold"
-          },
-          "link": null
-        },
-        {
-          "localized_name": "start_percent",
-          "name": "start_percent",
-          "type": "FLOAT",
-          "widget": {
-            "name": "start_percent"
-          },
-          "link": null
-        },
-        {
-          "localized_name": "end_percent",
-          "name": "end_percent",
-          "type": "FLOAT",
-          "widget": {
-            "name": "end_percent"
-          },
-          "link": null
-        },
-        {
-          "localized_name": "max_consecutive_hits",
-          "name": "max_consecutive_hits",
-          "type": "INT",
-          "widget": {
-            "name": "max_consecutive_hits"
-          },
-          "link": null
-        },
-        {
-          "localized_name": "temporal_guard",
-          "name": "temporal_guard",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "temporal_guard"
+            "name": "weight_dtype"
           },
           "link": null
         }
       ],
       "outputs": [
         {
+          "label": "MODEL",
           "localized_name": "模型",
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            644
+            3,
+            4
           ]
         }
       ],
       "properties": {
-        "Node name for S&R": "ApplyMiniMaxH3FirstBlockCache"
-      },
-      "widgets_values": [
-        "H3 Fast — 0.10 / max 2",
-        0.1,
-        0.1,
-        0.95,
-        2,
-        false
-      ],
-      "widgets_values_named": {
-        "mode": "H3 Fast — 0.10 / max 2",
-        "threshold": 0.1,
-        "start_percent": 0.1,
-        "end_percent": 0.95,
-        "max_consecutive_hits": 2,
-        "temporal_guard": false
-      }
-    },
-    {
-      "id": 2,
-      "type": "RandomNoise",
-      "pos": [
-        288.159669334266,
-        3328.521967192163
-      ],
-      "size": [
-        360,
-        90
-      ],
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "label": "noise_seed",
-          "localized_name": "噪波随机种",
-          "name": "noise_seed",
-          "type": "INT",
-          "widget": {
-            "name": "noise_seed"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "label": "NOISE",
-          "localized_name": "噪波",
-          "name": "NOISE",
-          "type": "NOISE",
-          "links": [
-            333,
-            654
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "RandomNoise",
+        "Node name for S&R": "UNETLoader",
         "cnr_id": "comfy-core",
         "ver": "0.30.0",
         "widget_ue_connectable": {
-          "noise_seed": true
+          "weight_dtype": true,
+          "unet_name": true
         },
+        "models": [
+          {
+            "name": "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+            "directory": "diffusion_models",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors"
+          }
+        ],
         "ue_properties": {
           "widget_ue_connectable": {},
           "input_ue_unconnectable": {},
@@ -158,20 +134,20 @@
         }
       },
       "widgets_values": [
-        375275876008766,
-        "randomize"
+        "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+        "default"
       ],
       "widgets_values_named": {
-        "noise_seed": 375275876008766,
-        "control_after_generate": "randomize"
+        "unet_name": "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+        "weight_dtype": "default"
       }
     },
     {
       "id": 3,
       "type": "BasicGuider",
       "pos": [
-        290.1118622419808,
-        3462.6655671921653
+        420.0,
+        120.0
       ],
       "size": [
         360,
@@ -186,14 +162,14 @@
           "localized_name": "模型",
           "name": "model",
           "type": "MODEL",
-          "link": 5
+          "link": 3
         },
         {
           "label": "conditioning",
           "localized_name": "条件",
           "name": "conditioning",
           "type": "CONDITIONING",
-          "link": 7
+          "link": 1
         }
       ],
       "outputs": [
@@ -203,8 +179,7 @@
           "name": "GUIDER",
           "type": "GUIDER",
           "links": [
-            334,
-            655
+            8
           ]
         }
       ],
@@ -221,446 +196,11 @@
       }
     },
     {
-      "id": 4,
-      "type": "KSamplerSelect",
-      "pos": [
-        290.1118622419808,
-        3572.6655671921653
-      ],
-      "size": [
-        370,
-        70
-      ],
-      "flags": {},
-      "order": 13,
-      "mode": 0,
-      "inputs": [
-        {
-          "label": "sampler_name",
-          "localized_name": "采样器名称",
-          "name": "sampler_name",
-          "type": "COMBO",
-          "widget": {
-            "name": "sampler_name"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "label": "SAMPLER",
-          "localized_name": "采样器",
-          "name": "SAMPLER",
-          "type": "SAMPLER",
-          "links": [
-            335,
-            656
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "KSamplerSelect",
-        "cnr_id": "comfy-core",
-        "ver": "0.30.0",
-        "widget_ue_connectable": {
-          "sampler_name": true
-        },
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "input_ue_unconnectable": {},
-          "version": "7.8"
-        }
-      },
-      "widgets_values": [
-        "res_multistep"
-      ],
-      "widgets_values_named": {
-        "sampler_name": "res_multistep"
-      }
-    },
-    {
-      "id": 5,
-      "type": "LTXVConcatAVLatent",
-      "pos": [
-        863.2395571322459,
-        3055.3778666437756
-      ],
-      "size": [
-        181.308203125,
-        46
-      ],
-      "flags": {},
-      "order": 41,
-      "mode": 0,
-      "inputs": [
-        {
-          "label": "video_latent",
-          "localized_name": "video_latent",
-          "name": "video_latent",
-          "type": "LATENT",
-          "link": 13
-        },
-        {
-          "label": "audio_latent",
-          "localized_name": "audio_latent",
-          "name": "audio_latent",
-          "type": "LATENT",
-          "link": 14
-        }
-      ],
-      "outputs": [
-        {
-          "label": "latent",
-          "localized_name": "latent",
-          "name": "latent",
-          "type": "LATENT",
-          "links": [
-            652
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LTXVConcatAVLatent",
-        "cnr_id": "comfy-core",
-        "ver": "0.33.0",
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "input_ue_unconnectable": {},
-          "version": "7.5.2"
-        },
-        "widget_ue_connectable": {}
-      },
-      "color": "#223",
-      "bgcolor": "#335"
-    },
-    {
-      "id": 6,
-      "type": "MinimaxH3LatentUpscalerNode3D",
-      "pos": [
-        673.8884976503355,
-        2845.9031958068044
-      ],
-      "size": [
-        383.0502624511719,
-        131.65867614746094
-      ],
-      "flags": {},
-      "order": 40,
-      "mode": 0,
-      "inputs": [
-        {
-          "label": "latent",
-          "localized_name": "latent",
-          "name": "latent",
-          "type": "LATENT",
-          "link": 12
-        },
-        {
-          "label": "model_name",
-          "localized_name": "model_name",
-          "name": "model_name",
-          "type": "COMBO",
-          "widget": {
-            "name": "model_name"
-          },
-          "link": null
-        },
-        {
-          "label": "scale",
-          "localized_name": "scale",
-          "name": "scale",
-          "type": "FLOAT",
-          "widget": {
-            "name": "scale"
-          },
-          "link": null
-        },
-        {
-          "label": "device",
-          "localized_name": "device",
-          "name": "device",
-          "type": "COMBO",
-          "widget": {
-            "name": "device"
-          },
-          "link": null
-        },
-        {
-          "label": "precision",
-          "localized_name": "precision",
-          "name": "precision",
-          "type": "COMBO",
-          "widget": {
-            "name": "precision"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "label": "LATENT",
-          "localized_name": "Latent",
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            650
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "MinimaxH3LatentUpscalerNode3D",
-        "ver": "59f399f63a9ff81c588521e405b391c0d6decb90",
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "input_ue_unconnectable": {},
-          "version": "7.5.2"
-        },
-        "widget_ue_connectable": {},
-        "aux_id": "LBH-123-AI/Comfyui_Minimax_h3_latent_Upscaler"
-      },
-      "widgets_values": [
-        "minimax_h3_latent_upscaler_3d_bf16.safetensors",
-        2,
-        "cuda",
-        "fp16"
-      ],
-      "widgets_values_named": {
-        "model_name": "minimax_h3_latent_upscaler_3d_bf16.safetensors",
-        "scale": 2,
-        "device": "cuda",
-        "precision": "fp16"
-      },
-      "color": "#223",
-      "bgcolor": "#335"
-    },
-    {
-      "id": 7,
-      "type": "LTXVSeparateAVLatent",
-      "pos": [
-        653.0307207421703,
-        3056.0355256160356
-      ],
-      "size": [
-        186.7154296875,
-        46
-      ],
-      "flags": {},
-      "order": 39,
-      "mode": 0,
-      "inputs": [
-        {
-          "label": "av_latent",
-          "localized_name": "音视频潜空间",
-          "name": "av_latent",
-          "type": "LATENT",
-          "link": 11
-        }
-      ],
-      "outputs": [
-        {
-          "label": "video_latent",
-          "localized_name": "video_latent",
-          "name": "video_latent",
-          "type": "LATENT",
-          "links": [
-            649
-          ]
-        },
-        {
-          "label": "audio_latent",
-          "localized_name": "audio_latent",
-          "name": "audio_latent",
-          "type": "LATENT",
-          "links": [
-            651
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LTXVSeparateAVLatent",
-        "cnr_id": "comfy-core",
-        "ver": "0.33.0",
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "input_ue_unconnectable": {},
-          "version": "7.5.2"
-        },
-        "widget_ue_connectable": {}
-      },
-      "color": "#223",
-      "bgcolor": "#335"
-    },
-    {
-      "id": 8,
-      "type": "SamplerCustomAdvanced",
-      "pos": [
-        406.93185524506987,
-        2823.229222435547
-      ],
-      "size": [
-        230,
-        140
-      ],
-      "flags": {},
-      "order": 38,
-      "mode": 0,
-      "inputs": [
-        {
-          "label": "noise",
-          "localized_name": "噪波",
-          "name": "noise",
-          "type": "NOISE",
-          "link": 17
-        },
-        {
-          "label": "guider",
-          "localized_name": "引导器",
-          "name": "guider",
-          "type": "GUIDER",
-          "link": 18
-        },
-        {
-          "label": "sampler",
-          "localized_name": "采样器",
-          "name": "sampler",
-          "type": "SAMPLER",
-          "link": 19
-        },
-        {
-          "label": "sigmas",
-          "localized_name": "西格玛",
-          "name": "sigmas",
-          "type": "SIGMAS",
-          "link": 23
-        },
-        {
-          "label": "latent_image",
-          "localized_name": "Latent图像",
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 16
-        }
-      ],
-      "outputs": [
-        {
-          "label": "output",
-          "localized_name": "Latent",
-          "name": "output",
-          "type": "LATENT",
-          "links": []
-        },
-        {
-          "label": "denoised_output",
-          "localized_name": "降噪Latent",
-          "name": "denoised_output",
-          "type": "LATENT",
-          "links": [
-            648
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "SamplerCustomAdvanced",
-        "widget_ue_connectable": {}
-      }
-    },
-    {
-      "id": 9,
-      "type": "ExtendIntermediateSigmas",
-      "pos": [
-        624.3401349798887,
-        3759.816203474179
-      ],
-      "size": [
-        218.91220092773438,
-        136.38601684570312
-      ],
-      "flags": {},
-      "order": 36,
-      "mode": 0,
-      "inputs": [
-        {
-          "label": "sigmas",
-          "localized_name": "sigmas",
-          "name": "sigmas",
-          "type": "SIGMAS",
-          "link": 20
-        },
-        {
-          "label": "steps",
-          "localized_name": "步数",
-          "name": "steps",
-          "type": "INT",
-          "widget": {
-            "name": "steps"
-          },
-          "link": null
-        },
-        {
-          "label": "start_at_sigma",
-          "localized_name": "起始 sigma",
-          "name": "start_at_sigma",
-          "type": "FLOAT",
-          "widget": {
-            "name": "start_at_sigma"
-          },
-          "link": null
-        },
-        {
-          "label": "end_at_sigma",
-          "localized_name": "结束 sigma",
-          "name": "end_at_sigma",
-          "type": "FLOAT",
-          "widget": {
-            "name": "end_at_sigma"
-          },
-          "link": null
-        },
-        {
-          "label": "spacing",
-          "localized_name": "间距方式",
-          "name": "spacing",
-          "type": "COMBO",
-          "widget": {
-            "name": "spacing"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "label": "SIGMAS",
-          "localized_name": "Sigmas",
-          "name": "SIGMAS",
-          "type": "SIGMAS",
-          "links": [
-            659
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ExtendIntermediateSigmas",
-        "widget_ue_connectable": {}
-      },
-      "widgets_values": [
-        2,
-        0.8000000000000002,
-        0.6000000000000001,
-        "cosine"
-      ],
-      "widgets_values_named": {
-        "steps": 2,
-        "start_at_sigma": 0.8000000000000002,
-        "end_at_sigma": 0.6000000000000001,
-        "spacing": "cosine"
-      }
-    },
-    {
       "id": 10,
       "type": "BasicScheduler",
       "pos": [
-        309.92611089432444,
-        3752.4008114475355
+        420.0,
+        340.0
       ],
       "size": [
         240.08549390075723,
@@ -675,7 +215,7 @@
           "localized_name": "模型",
           "name": "model",
           "type": "MODEL",
-          "link": 6
+          "link": 4
         },
         {
           "label": "scheduler",
@@ -715,7 +255,7 @@
           "name": "SIGMAS",
           "type": "SIGMAS",
           "links": [
-            658
+            5
           ]
         }
       ],
@@ -735,286 +275,60 @@
         }
       },
       "widgets_values": [
-        "beta",
-        12,
+        "simple",
+        20,
         1
       ],
       "widgets_values_named": {
-        "scheduler": "beta",
-        "steps": 12,
+        "scheduler": "simple",
+        "steps": 20,
         "denoise": 1
       }
     },
     {
-      "id": 11,
-      "type": "SplitSigmas",
+      "id": 2,
+      "type": "RandomNoise",
       "pos": [
-        866.5320782607333,
-        3764.9102288167514
+        420.0,
+        580.0
       ],
       "size": [
-        210,
-        78
-      ],
-      "flags": {},
-      "order": 37,
-      "mode": 0,
-      "inputs": [
-        {
-          "label": "sigmas",
-          "localized_name": "Sigmas",
-          "name": "sigmas",
-          "type": "SIGMAS",
-          "link": 21
-        },
-        {
-          "label": "step",
-          "localized_name": "步数",
-          "name": "step",
-          "type": "INT",
-          "widget": {
-            "name": "step"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "label": "high_sigmas",
-          "localized_name": "高方差",
-          "name": "high_sigmas",
-          "type": "SIGMAS",
-          "links": [
-            661
-          ]
-        },
-        {
-          "label": "low_sigmas",
-          "localized_name": "低方差",
-          "name": "low_sigmas",
-          "type": "SIGMAS",
-          "links": [
-            660
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "SplitSigmas",
-        "cnr_id": "comfy-core",
-        "ver": "0.33.0",
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "input_ue_unconnectable": {},
-          "version": "7.5.2"
-        },
-        "widget_ue_connectable": {}
-      },
-      "widgets_values": [
-        7
-      ],
-      "widgets_values_named": {
-        "step": 7
-      }
-    },
-    {
-      "id": 12,
-      "type": "UNETLoader",
-      "pos": [
-        -405.31876327234187,
-        3027.354842127801
-      ],
-      "size": [
-        229.07594822693,
-        89.02390354614272
-      ],
-      "flags": {},
-      "order": 15,
-      "mode": 0,
-      "inputs": [
-        {
-          "label": "unet_name",
-          "localized_name": "UNet名称",
-          "name": "unet_name",
-          "type": "COMBO",
-          "widget": {
-            "name": "unet_name"
-          },
-          "link": null
-        },
-        {
-          "label": "weight_dtype",
-          "localized_name": "数据类型",
-          "name": "weight_dtype",
-          "type": "COMBO",
-          "widget": {
-            "name": "weight_dtype"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "label": "MODEL",
-          "localized_name": "模型",
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            647
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "UNETLoader",
-        "cnr_id": "comfy-core",
-        "ver": "0.30.0",
-        "widget_ue_connectable": {
-          "weight_dtype": true,
-          "unet_name": true
-        },
-        "models": [
-          {
-            "name": "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
-            "directory": "diffusion_models",
-            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors"
-          }
-        ],
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "input_ue_unconnectable": {},
-          "version": "7.8"
-        }
-      },
-      "widgets_values": [
-        "minimax/minimax_h3_ref2va_pruned_int8_convrot.safetensors",
-        "default"
-      ],
-      "widgets_values_named": {
-        "unet_name": "minimax/minimax_h3_ref2va_pruned_int8_convrot.safetensors",
-        "weight_dtype": "default"
-      }
-    },
-    {
-      "id": 13,
-      "type": "LoraLoaderModelOnly",
-      "pos": [
-        -421.4365718776386,
-        3168.5644720064297
-      ],
-      "size": [
-        270,
-        82
-      ],
-      "flags": {},
-      "order": 20,
-      "mode": 0,
-      "inputs": [
-        {
-          "localized_name": "模型",
-          "name": "model",
-          "type": "MODEL",
-          "link": 10
-        },
-        {
-          "localized_name": "LoRA名称",
-          "name": "lora_name",
-          "type": "COMBO",
-          "widget": {
-            "name": "lora_name"
-          },
-          "link": null
-        },
-        {
-          "localized_name": "模型强度",
-          "name": "strength_model",
-          "type": "FLOAT",
-          "widget": {
-            "name": "strength_model"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "localized_name": "模型",
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            662
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoraLoaderModelOnly"
-      },
-      "widgets_values": [
-        "minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
-        0.7
-      ],
-      "widgets_values_named": {
-        "lora_name": "minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
-        "strength_model": 0.7
-      }
-    },
-    {
-      "id": 14,
-      "type": "PathchSageAttentionKJ",
-      "pos": [
-        -73.58976269375587,
-        3340.927885783603
-      ],
-      "size": [
-        270,
+        360,
         90
       ],
       "flags": {},
-      "order": 30,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
-          "label": "model",
-          "localized_name": "model",
-          "name": "model",
-          "type": "MODEL",
-          "link": 9
-        },
-        {
-          "label": "sage_attention",
-          "localized_name": "sage_attention",
-          "name": "sage_attention",
-          "type": "COMBO",
+          "label": "noise_seed",
+          "localized_name": "噪波随机种",
+          "name": "noise_seed",
+          "type": "INT",
           "widget": {
-            "name": "sage_attention"
-          },
-          "link": null
-        },
-        {
-          "label": "allow_compile",
-          "localized_name": "allow_compile",
-          "name": "allow_compile",
-          "shape": 7,
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "allow_compile"
+            "name": "noise_seed"
           },
           "link": null
         }
       ],
       "outputs": [
         {
-          "label": "MODEL",
-          "localized_name": "模型",
-          "name": "MODEL",
-          "type": "MODEL",
+          "label": "NOISE",
+          "localized_name": "噪波",
+          "name": "NOISE",
+          "type": "NOISE",
           "links": [
-            419
+            6
           ]
         }
       ],
-      "title": "SAGE注意力补丁KJ",
       "properties": {
-        "Node name for S&R": "PathchSageAttentionKJ",
-        "cnr_id": "comfyui-kjnodes",
-        "ver": "be97a7ee7c26cd087baaae236f79f0284f2ca09c",
+        "Node name for S&R": "RandomNoise",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "widget_ue_connectable": {
+          "noise_seed": true
+        },
         "ue_properties": {
           "widget_ue_connectable": {},
           "input_ue_unconnectable": {},
@@ -1022,214 +336,77 @@
         }
       },
       "widgets_values": [
-        "sageattn_qk_int8_pv_fp8_cuda++",
-        true
+        261662374822964,
+        "randomize"
       ],
       "widgets_values_named": {
-        "sage_attention": "sageattn_qk_int8_pv_fp8_cuda++",
-        "allow_compile": true
+        "noise_seed": 261662374822964,
+        "control_after_generate": "randomize"
       }
     },
     {
-      "id": 15,
-      "type": "ModelPatchTorchSettings",
+      "id": 4,
+      "type": "KSamplerSelect",
       "pos": [
-        -401.60865662655425,
-        3482.4220861962044
+        420.0,
+        740.0
       ],
       "size": [
-        252.095703125,
-        60
+        370,
+        70
       ],
       "flags": {},
-      "order": 33,
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
-          "label": "model",
-          "localized_name": "model",
-          "name": "model",
-          "type": "MODEL",
-          "link": 4
-        },
-        {
-          "label": "enable_fp16_accumulation",
-          "localized_name": "enable_fp16_accumulation",
-          "name": "enable_fp16_accumulation",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "enable_fp16_accumulation"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "label": "MODEL",
-          "localized_name": "模型",
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            637,
-            638
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ModelPatchTorchSettings",
-        "cnr_id": "comfyui-kjnodes",
-        "ver": "2f7300dc546ec2d36fa8b0feebe493d41026524c",
-        "ue_properties": {
-          "widget_ue_connectable": {
-            "enable_fp16_accumulation": true
-          },
-          "input_ue_unconnectable": {},
-          "version": "7.2.2"
-        },
-        "widget_ue_connectable": {
-          "enable_fp16_accumulation": true
-        }
-      },
-      "widgets_values": [
-        true
-      ],
-      "widgets_values_named": {
-        "enable_fp16_accumulation": true
-      },
-      "color": "#779e74",
-      "bgcolor": "#638a60"
-    },
-    {
-      "id": 16,
-      "type": "ModelAttentionBackend",
-      "pos": [
-        -392.3899290453583,
-        3330.8169857234234
-      ],
-      "size": [
-        255.2539999999998,
-        90.70338763427799
-      ],
-      "flags": {
-        "collapsed": false
-      },
-      "order": 24,
-      "mode": 0,
-      "inputs": [
-        {
-          "label": "model",
-          "localized_name": "model",
-          "name": "model",
-          "type": "MODEL",
-          "link": 24
-        },
-        {
-          "label": "attention",
-          "localized_name": "attention",
-          "name": "attention",
+          "label": "sampler_name",
+          "localized_name": "采样器名称",
+          "name": "sampler_name",
           "type": "COMBO",
           "widget": {
-            "name": "attention"
+            "name": "sampler_name"
           },
           "link": null
         }
       ],
       "outputs": [
         {
-          "label": "MODEL",
-          "localized_name": "模型",
-          "name": "MODEL",
-          "type": "MODEL",
+          "label": "SAMPLER",
+          "localized_name": "采样器",
+          "name": "SAMPLER",
+          "type": "SAMPLER",
           "links": [
-            663
+            7
           ]
         }
       ],
       "properties": {
-        "Node name for S&R": "ModelAttentionBackend",
+        "Node name for S&R": "KSamplerSelect",
         "cnr_id": "comfy-core",
-        "ver": "0.32.0",
+        "ver": "0.30.0",
+        "widget_ue_connectable": {
+          "sampler_name": true
+        },
         "ue_properties": {
           "widget_ue_connectable": {},
           "input_ue_unconnectable": {},
-          "version": "7.5.2"
-        },
-        "widget_ue_connectable": {
-          "attention": true
+          "version": "7.8"
         }
       },
       "widgets_values": [
-        "comfy kitchen attention"
+        "res_multistep"
       ],
       "widgets_values_named": {
-        "attention": "comfy kitchen attention"
-      }
-    },
-    {
-      "id": 17,
-      "type": "CloudLoadInputsH3",
-      "pos": [
-        351.4909067493712,
-        3035.735871755909
-      ],
-      "size": [
-        270,
-        78
-      ],
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "inputs": [
-        {
-          "localized_name": "管道",
-          "name": "管道",
-          "type": "STRING",
-          "widget": {
-            "name": "管道"
-          },
-          "link": null
-        },
-        {
-          "localized_name": "model",
-          "name": "model",
-          "type": "MODEL",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "localized_name": "positive",
-          "name": "positive",
-          "type": "CONDITIONING",
-          "links": [
-            639
-          ]
-        },
-        {
-          "localized_name": "Latent",
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            653
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CloudLoadInputsH3"
-      },
-      "widgets_values": [
-        "default"
-      ],
-      "widgets_values_named": {
-        "管道": "default"
+        "sampler_name": "res_multistep"
       }
     },
     {
       "id": 18,
       "type": "SamplerCustomAdvanced",
       "pos": [
-        779.1471135957297,
-        3547.6543162230487
+        800.0,
+        300.0
       ],
       "size": [
         211.125,
@@ -1244,35 +421,35 @@
           "localized_name": "噪波",
           "name": "noise",
           "type": "NOISE",
-          "link": 1
+          "link": 6
         },
         {
           "label": "guider",
           "localized_name": "引导器",
           "name": "guider",
           "type": "GUIDER",
-          "link": 2
+          "link": 8
         },
         {
           "label": "sampler",
           "localized_name": "采样器",
           "name": "sampler",
           "type": "SAMPLER",
-          "link": 3
+          "link": 7
         },
         {
           "label": "sigmas",
           "localized_name": "西格玛",
           "name": "sigmas",
           "type": "SIGMAS",
-          "link": 22
+          "link": 5
         },
         {
           "label": "latent_image",
           "localized_name": "Latent图像",
           "name": "latent_image",
           "type": "LATENT",
-          "link": 15
+          "link": 2
         }
       ],
       "outputs": [
@@ -1282,7 +459,7 @@
           "name": "output",
           "type": "LATENT",
           "links": [
-            641
+            9
           ]
         },
         {
@@ -1309,8 +486,8 @@
       "id": 19,
       "type": "CloudSendBackH3",
       "pos": [
-        797.2989388679771,
-        3337.529391575753
+        1160.0,
+        300.0
       ],
       "size": [
         275.9048828125,
@@ -1324,7 +501,7 @@
           "localized_name": "LATENT",
           "name": "LATENT",
           "type": "LATENT",
-          "link": 8
+          "link": 9
         },
         {
           "localized_name": "task_id",
@@ -1352,60 +529,13 @@
       ],
       "widgets_values_named": {
         "task_id": "default"
-      }
+      },
+      "title": "C·H3云端结果回传"
     }
   ],
   "links": [
     [
       1,
-      2,
-      0,
-      18,
-      0,
-      "NOISE"
-    ],
-    [
-      2,
-      3,
-      0,
-      18,
-      1,
-      "GUIDER"
-    ],
-    [
-      3,
-      4,
-      0,
-      18,
-      2,
-      "SAMPLER"
-    ],
-    [
-      4,
-      14,
-      0,
-      15,
-      0,
-      "MODEL"
-    ],
-    [
-      5,
-      15,
-      0,
-      3,
-      0,
-      "MODEL"
-    ],
-    [
-      6,
-      15,
-      0,
-      10,
-      0,
-      "MODEL"
-    ],
-    [
-      7,
       17,
       0,
       3,
@@ -1413,154 +543,72 @@
       "CONDITIONING"
     ],
     [
-      8,
+      2,
+      17,
+      1,
       18,
-      0,
-      19,
-      0,
+      4,
       "LATENT"
     ],
     [
-      9,
-      1,
+      3,
+      12,
       0,
-      14,
+      3,
       0,
       "MODEL"
     ],
     [
+      4,
+      12,
+      0,
       10,
-      12,
-      0,
-      13,
       0,
       "MODEL"
     ],
     [
-      11,
-      8,
-      1,
-      7,
-      0,
-      "LATENT"
-    ],
-    [
-      12,
-      7,
-      0,
-      6,
-      0,
-      "LATENT"
-    ],
-    [
-      13,
-      6,
-      0,
       5,
-      0,
-      "LATENT"
-    ],
-    [
-      14,
-      7,
-      1,
-      5,
-      1,
-      "LATENT"
-    ],
-    [
-      15,
-      5,
+      10,
       0,
       18,
-      4,
-      "LATENT"
+      3,
+      "SIGMAS"
     ],
     [
-      16,
-      17,
-      1,
-      8,
-      4,
-      "LATENT"
-    ],
-    [
-      17,
+      6,
       2,
       0,
-      8,
+      18,
       0,
       "NOISE"
     ],
     [
-      18,
-      3,
-      0,
-      8,
-      1,
-      "GUIDER"
-    ],
-    [
-      19,
+      7,
       4,
       0,
-      8,
+      18,
       2,
       "SAMPLER"
     ],
     [
-      20,
-      10,
-      0,
-      9,
-      0,
-      "SIGMAS"
-    ],
-    [
-      21,
-      9,
-      0,
-      11,
-      0,
-      "SIGMAS"
-    ],
-    [
-      22,
-      11,
-      1,
-      18,
-      3,
-      "SIGMAS"
-    ],
-    [
-      23,
-      11,
-      0,
       8,
       3,
-      "SIGMAS"
-    ],
-    [
-      24,
-      13,
       0,
-      16,
-      0,
-      "MODEL"
-    ],
-    [
-      25,
-      16,
-      0,
+      18,
       1,
+      "GUIDER"
+    ],
+    [
+      9,
+      18,
       0,
-      "MODEL"
+      19,
+      0,
+      "LATENT"
     ]
   ],
   "groups": [],
   "config": {},
   "extra": {},
-  "version": 0.4,
-  "last_node_id": 19,
-  "last_link_id": 25
+  "version": 0.4
 }
