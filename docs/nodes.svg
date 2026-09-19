@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640" font-family="sans-serif">
+  <!-- 背景 -->
+  <rect width="900" height="640" fill="#1e1e1e"/>
+  <text x="450" y="34" fill="#fff" font-size="20" text-anchor="middle" font-weight="bold">ComfyUI-CloudPipe 节点拓扑图</text>
+  <text x="450" y="56" fill="#aaa" font-size="13" text-anchor="middle">本机(左)  ↔  云端(右)  通过自建 SSH 隧道传输 cond/latent 与结果</text>
+
+  <!-- 本机栏 -->
+  <rect x="40" y="80" width="380" height="520" fill="#252526" stroke="#3a3a3a" rx="8"/>
+  <text x="230" y="104" fill="#4ec9b0" font-size="15" text-anchor="middle" font-weight="bold">🖥️ 本机 (Local)</text>
+
+  <!-- 本机节点: AnimaPipePack -->
+  <rect x="70" y="130" width="320" height="70" fill="#2d2d30" stroke="#6a9955" rx="6"/>
+  <text x="230" y="155" fill="#fff" font-size="13" text-anchor="middle" font-weight="bold">AnimaPipePack</text>
+  <text x="230" y="176" fill="#bbb" font-size="11" text-anchor="middle">输入: 模型/CLIP/VAE/提示词</text>
+  <text x="230" y="192" fill="#bbb" font-size="11" text-anchor="middle">输出: PIPE_LINE</text>
+
+  <!-- 本机节点: A -->
+  <rect x="70" y="240" width="320" height="110" fill="#2d2d30" stroke="#569cd6" rx="6"/>
+  <text x="230" y="265" fill="#fff" font-size="13" text-anchor="middle" font-weight="bold">🔄 A·云端协作 (CloudPipeAsync)</text>
+  <text x="230" y="286" fill="#bbb" font-size="11" text-anchor="middle">输入: PIPE_LINE</text>
+  <text x="230" y="304" fill="#bbb" font-size="11" text-anchor="middle">参数: 步骤/CFG/采样器/调度器/种子</text>
+  <text x="230" y="322" fill="#bbb" font-size="11" text-anchor="middle">输出: PIPE_LINE (云端采样后)</text>
+  <text x="230" y="340" fill="#888" font-size="10" text-anchor="middle">↑ SFTP上传 → 提交云端 → 轮询 → 下载</text>
+
+  <!-- 本机节点: VAEDecode -->
+  <rect x="70" y="390" width="320" height="70" fill="#2d2d30" stroke="#6a9955" rx="6"/>
+  <text x="230" y="415" fill="#fff" font-size="13" text-anchor="middle" font-weight="bold">VAEDecode</text>
+  <text x="230" y="436" fill="#bbb" font-size="11" text-anchor="middle">输入: A 输出的 PIPE_LINE</text>
+  <text x="230" y="452" fill="#bbb" font-size="11" text-anchor="middle">输出: 图片 (本地出图)</text>
+
+  <!-- 本机节点: 运维 -->
+  <rect x="70" y="490" width="320" height="90" fill="#2d2d30" stroke="#dcdcaa" rx="6"/>
+  <text x="230" y="514" fill="#fff" font-size="13" text-anchor="middle" font-weight="bold">☁️ 云端运维 (CloudComfyOp)</text>
+  <text x="230" y="534" fill="#bbb" font-size="11" text-anchor="middle">SSH主机 / SSH密码 / 连接并检测</text>
+  <text x="230" y="550" fill="#bbb" font-size="11" text-anchor="middle">重启 / 保存模板 / 状态</text>
+  <text x="230" y="566" fill="#888" font-size="10" text-anchor="middle">★ 独立节点，不接主链路，只管连接</text>
+
+  <!-- 连接线 本机 -->
+  <line x1="230" y1="200" x2="230" y2="240" stroke="#888" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="230" y1="350" x2="230" y2="390" stroke="#888" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 云端栏 -->
+  <rect x="480" y="80" width="380" height="520" fill="#252526" stroke="#3a3a3a" rx="8"/>
+  <text x="670" y="104" fill="#4ec9b0" font-size="15" text-anchor="middle" font-weight="bold">☁️ 云端 (Cloud)</text>
+
+  <!-- 云端: UNETLoader -->
+  <rect x="510" y="130" width="320" height="55" fill="#2d2d30" stroke="#c586c0" rx="6"/>
+  <text x="670" y="152" fill="#fff" font-size="12" text-anchor="middle" font-weight="bold">UNETLoader</text>
+  <text x="670" y="172" fill="#bbb" font-size="10" text-anchor="middle">云端模型 (CLOUD_UNET)</text>
+
+  <!-- 云端: CLIPLoader -->
+  <rect x="510" y="200" width="320" height="55" fill="#2d2d30" stroke="#c586c0" rx="6"/>
+  <text x="670" y="222" fill="#fff" font-size="12" text-anchor="middle" font-weight="bold">CLIPLoader</text>
+  <text x="670" y="242" fill="#bbb" font-size="10" text-anchor="middle">云端 CLIP (CLOUD_CLIP)</text>
+
+  <!-- 云端: B -->
+  <rect x="510" y="280" width="320" height="80" fill="#2d2d30" stroke="#569cd6" rx="6"/>
+  <text x="670" y="304" fill="#fff" font-size="13" text-anchor="middle" font-weight="bold">📥 B·云端接收 (CloudLoadInputs)</text>
+  <text x="670" y="326" fill="#bbb" font-size="11" text-anchor="middle">输入: model + clip + 管道(STRING)</text>
+  <text x="670" y="344" fill="#bbb" font-size="11" text-anchor="middle">输出: PIPE_LINE (读A上传的文件)</text>
+
+  <!-- 云端: easy fullkSampler -->
+  <rect x="510" y="385" width="320" height="80" fill="#3a2d2d" stroke="#ce9178" rx="6"/>
+  <text x="670" y="409" fill="#fff" font-size="13" text-anchor="middle" font-weight="bold">easy fullkSampler ★</text>
+  <text x="670" y="431" fill="#bbb" font-size="11" text-anchor="middle">输入: PIPE_LINE (来自 B)</text>
+  <text x="670" y="449" fill="#bbb" font-size="11" text-anchor="middle">输出: PIPE_LINE (采样后)</text>
+  <text x="670" y="465" fill="#888" font-size="10" text-anchor="middle">需装 Easy-Use 自定义节点</text>
+
+  <!-- 云端: C -->
+  <rect x="510" y="490" width="320" height="80" fill="#2d2d30" stroke="#569cd6" rx="6"/>
+  <text x="670" y="514" fill="#fff" font-size="13" text-anchor="middle" font-weight="bold">📤 C·云端结果传回 (CloudSendBack)</text>
+  <text x="670" y="536" fill="#bbb" font-size="11" text-anchor="middle">输入: PIPE_LINE + task_id</text>
+  <text x="670" y="554" fill="#bbb" font-size="11" text-anchor="middle">作用: 序列化结果 → A 下载</text>
+
+  <!-- 连接线 云端 -->
+  <line x1="670" y1="185" x2="670" y2="200" stroke="#888" stroke-width="2"/>
+  <line x1="670" y1="255" x2="670" y2="280" stroke="#888" stroke-width="2"/>
+  <line x1="670" y1="360" x2="670" y2="385" stroke="#888" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="670" y1="465" x2="670" y2="490" stroke="#888" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 中间隧道 -->
+  <rect x="430" y="300" width="40" height="120" fill="#3a3a3a" stroke="#d7ba7d" rx="4"/>
+  <text x="450" y="340" fill="#d7ba7d" font-size="10" text-anchor="middle" transform="rotate(-90 450 340)">SSH隧道</text>
+  <text x="450" y="370" fill="#d7ba7d" font-size="9" text-anchor="middle" transform="rotate(-90 450 370)">SFTP+HTTP</text>
+
+  <!-- 箭头定义 -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#888"/>
+    </marker>
+  </defs>
+
+  <text x="450" y="628" fill="#888" font-size="11" text-anchor="middle">绿色虚线 = 数据流向 ｜ 云端工作流需常驻运行，B的「管道」由A自动填入</text>
+</svg>

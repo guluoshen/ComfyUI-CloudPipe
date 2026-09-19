@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="980" viewBox="0 0 1120 980" font-family="'Segoe UI', 'Microsoft YaHei', sans-serif">
+  <!-- 背景 浅色 -->
+  <rect width="1120" height="980" fill="#f6f8fb"/>
+
+  <!-- 标题 -->
+  <text x="560" y="34" fill="#1f2937" font-size="20" text-anchor="middle" font-weight="bold">ComfyUI-CloudPipe · H3 视频云端协作架构图（B 方案）</text>
+  <text x="560" y="56" fill="#64748b" font-size="13" text-anchor="middle">本机(左) ↔ 云端(右) ｜ A 本机用，B/C 云端用 ｜ 中间 .pt 上传/回传走 SSH 隧道(SFTP)</text>
+
+  <!-- 本机栏 -->
+  <rect x="30" y="80" width="440" height="860" fill="#eaf1fb" stroke="#bcd3ee" rx="10"/>
+  <text x="250" y="104" fill="#1d4ed8" font-size="15" text-anchor="middle" font-weight="bold">🖥️ 本机 (Local)</text>
+
+  <!-- LoadImage/LoadAudio -->
+  <rect x="55" y="120" width="390" height="52" fill="#ffffff" stroke="#64748b" rx="6"/>
+  <text x="250" y="142" fill="#1f2937" font-size="13" text-anchor="middle" font-weight="bold">LoadImage / LoadAudio</text>
+  <text x="250" y="160" fill="#64748b" font-size="10" text-anchor="middle">参考图 / 参考音频（像素不出本地）</text>
+
+  <!-- MiniMaxH3ReferenceToVideo -->
+  <rect x="55" y="190" width="390" height="64" fill="#ffffff" stroke="#0ea5e9" rx="6"/>
+  <text x="250" y="212" fill="#0c4a6e" font-size="13" text-anchor="middle" font-weight="bold">MiniMaxH3ReferenceToVideo</text>
+  <text x="250" y="230" fill="#64748b" font-size="10" text-anchor="middle">海螺 H3 参考图转视频（ref 媒体 VAE 编码 + 文本编码）</text>
+  <text x="250" y="246" fill="#64748b" font-size="10" text-anchor="middle">输出: positive(CONDITIONING) + LATENT(空 AV latent)</text>
+
+  <!-- A H3 -->
+  <rect x="55" y="280" width="390" height="72" fill="#eff6ff" stroke="#2563eb" rx="6"/>
+  <text x="250" y="302" fill="#1e40af" font-size="13" text-anchor="middle" font-weight="bold">🔄 A·H3云端视频协作 (CloudPipeAsyncH3)</text>
+  <text x="250" y="320" fill="#475569" font-size="10" text-anchor="middle">本机用 ｜ 输入: positive + LATENT(空 AV latent)</text>
+  <text x="250" y="336" fill="#475569" font-size="10" text-anchor="middle">.pt 打包上传 → 不重复编码 / 参考图不出本地</text>
+
+  <!-- 本机竖向连线 -->
+  <line x1="250" y1="172" x2="250" y2="190" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="250" y1="254" x2="250" y2="280" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 本机解码组 -->
+  <rect x="55" y="560" width="390" height="44" fill="#ffffff" stroke="#16a34a" rx="6"/>
+  <text x="250" y="580" fill="#166534" font-size="12" text-anchor="middle" font-weight="bold">VAEDecode（视频 VAE 解码）</text>
+  <text x="250" y="595" fill="#64748b" font-size="10" text-anchor="middle">输入: 回传的 denoised AV LATENT</text>
+
+  <rect x="55" y="616" width="390" height="44" fill="#ffffff" stroke="#16a34a" rx="6"/>
+  <text x="250" y="636" fill="#166534" font-size="12" text-anchor="middle" font-weight="bold">VAEDecodeAudio（音频 VAE 解码）</text>
+
+  <rect x="55" y="672" width="390" height="44" fill="#ffffff" stroke="#16a34a" rx="6"/>
+  <text x="250" y="692" fill="#166534" font-size="12" text-anchor="middle" font-weight="bold">CreateVideo（合成视频）</text>
+
+  <rect x="55" y="728" width="390" height="44" fill="#ffffff" stroke="#16a34a" rx="6"/>
+  <text x="250" y="748" fill="#166534" font-size="12" text-anchor="middle" font-weight="bold">SaveVideo（保存视频）</text>
+  <text x="250" y="763" fill="#64748b" font-size="10" text-anchor="middle">本地出片</text>
+
+  <!-- 本机解码竖向连线 -->
+  <line x1="250" y1="604" x2="250" y2="616" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="250" y1="660" x2="250" y2="672" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="250" y1="716" x2="250" y2="728" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 云端栏 -->
+  <rect x="650" y="80" width="440" height="860" fill="#eafbf0" stroke="#bfe6cf" rx="10"/>
+  <text x="870" y="104" fill="#047857" font-size="15" text-anchor="middle" font-weight="bold">☁️ 云端 (Cloud)</text>
+
+  <!-- B H3 -->
+  <rect x="675" y="280" width="390" height="72" fill="#eff6ff" stroke="#2563eb" rx="6"/>
+  <text x="870" y="302" fill="#1e40af" font-size="13" text-anchor="middle" font-weight="bold">📥 B·H3云端接收+透传 (CloudLoadInputsH3)</text>
+  <text x="870" y="320" fill="#475569" font-size="10" text-anchor="middle">云端用 ｜ 输入: 管道(STRING)</text>
+  <text x="870" y="336" fill="#475569" font-size="10" text-anchor="middle">从 .pt 读回 positive+LATENT 透传（不加载 CLIP）</text>
+
+  <!-- 采样链 -->
+  <rect x="675" y="372" width="390" height="268" fill="#fffdf5" stroke="#d97706" rx="6"/>
+  <text x="870" y="394" fill="#b45309" font-size="12" text-anchor="middle" font-weight="bold">采样链 (Sampling Chain) — 云端</text>
+  <text x="870" y="420" fill="#374151" font-size="11" text-anchor="middle">UNETLoader（ref2va UNET，约 20GB）</text>
+  <line x1="695" y1="432" x2="1045" y2="432" stroke="#fde68a" stroke-width="1"/>
+  <text x="870" y="450" fill="#374151" font-size="11" text-anchor="middle">LoraLoaderModelOnly（minimax_h3_fl2v_turbo_8step LoRA）</text>
+  <line x1="695" y1="462" x2="1045" y2="462" stroke="#fde68a" stroke-width="1"/>
+  <text x="870" y="480" fill="#374151" font-size="11" text-anchor="middle">ModelAttentionBackend</text>
+  <line x1="695" y1="492" x2="1045" y2="492" stroke="#fde68a" stroke-width="1"/>
+  <text x="870" y="510" fill="#374151" font-size="11" text-anchor="middle">MiniMax H3 FirstBlockCache（首块缓存加速）</text>
+  <line x1="695" y1="522" x2="1045" y2="522" stroke="#fde68a" stroke-width="1"/>
+  <text x="870" y="540" fill="#374151" font-size="11" text-anchor="middle">SAGE注意力补丁KJ（SAGE Attention 补丁）</text>
+  <line x1="695" y1="552" x2="1045" y2="552" stroke="#fde68a" stroke-width="1"/>
+  <text x="870" y="570" fill="#374151" font-size="11" text-anchor="middle">Model Patch Torch Settings</text>
+  <line x1="695" y1="582" x2="1045" y2="582" stroke="#fde68a" stroke-width="1"/>
+  <text x="870" y="606" fill="#374151" font-size="11" text-anchor="middle" font-weight="bold">BasicGuider / SamplerCustomAdvanced（真 latent 二采）</text>
+
+  <!-- C H3 -->
+  <rect x="675" y="664" width="390" height="72" fill="#eff6ff" stroke="#2563eb" rx="6"/>
+  <text x="870" y="686" fill="#1e40af" font-size="13" text-anchor="middle" font-weight="bold">📤 C·H3云端AV Latent回传 (CloudSendBackH3)</text>
+  <text x="870" y="704" fill="#475569" font-size="10" text-anchor="middle">云端用 ｜ 接收 denoised AV LATENT</text>
+  <text x="870" y="720" fill="#475569" font-size="10" text-anchor="middle">序列化 .pt 回传本机</text>
+
+  <!-- 云端竖向连线 -->
+  <line x1="870" y1="352" x2="870" y2="372" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="870" y1="640" x2="870" y2="664" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 中间 SSH 隧道 -->
+  <rect x="492" y="300" width="40" height="380" fill="#fff7e6" stroke="#e0b15a" rx="6"/>
+  <text x="512" y="430" fill="#b45309" font-size="11" text-anchor="middle" transform="rotate(-90 512 430)">SSH 隧道 / SFTP</text>
+  <text x="512" y="560" fill="#b45309" font-size="10" text-anchor="middle" transform="rotate(-90 512 560)">.pt 上传/回传</text>
+
+  <!-- 上传箭头 A→B -->
+  <line x1="445" y1="316" x2="672" y2="316" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="560" y="308" fill="#1e40af" font-size="10" text-anchor="middle">.pt 上传 (positive + 空 AV latent)</text>
+
+  <!-- 回传箭头 C→本机 VAEDecode -->
+  <path d="M675,700 L560,860 L250,860 L250,606" fill="none" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="430" y="878" fill="#1e40af" font-size="10" text-anchor="middle">.pt 回传 (denoised AV latent)</text>
+
+  <!-- 箭头定义 -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <!-- 图例 -->
+  <text x="560" y="965" fill="#64748b" font-size="11" text-anchor="middle">蓝色 = CloudPipe H3 节点(A/B/C) ｜ 灰色 = 原生节点 ｜ 琥珀色 = 云端采样链 ｜ 参考图像素不出本地</text>
+</svg>

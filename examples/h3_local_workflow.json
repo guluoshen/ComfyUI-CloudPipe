@@ -1,0 +1,1766 @@
+{
+  "id": null,
+  "revision": 0,
+  "last_node_id": 27,
+  "last_link_id": 29,
+  "nodes": [
+    {
+      "id": 3,
+      "type": "VAELoader",
+      "pos": [
+        40.0,
+        1060.0
+      ],
+      "size": [
+        650,
+        70
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "vae_name",
+          "localized_name": "vae名称",
+          "name": "vae_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "vae_name"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "VAE",
+          "localized_name": "VAE",
+          "name": "VAE",
+          "type": "VAE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "widget_ue_connectable": {
+          "vae_name": true
+        },
+        "models": [
+          {
+            "name": "minimax_h3_audio_vae_fp32.safetensors",
+            "directory": "vae",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_audio_vae_fp32.safetensors"
+          }
+        ],
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        }
+      },
+      "widgets_values": [
+        "minimax\\minimax_h3_audio_vae_fp32.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "minimax\\minimax_h3_audio_vae_fp32.safetensors"
+      }
+    },
+    {
+      "id": 4,
+      "type": "VAELoader",
+      "pos": [
+        40.0,
+        1180.0
+      ],
+      "size": [
+        640,
+        70
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "vae_name",
+          "localized_name": "vae名称",
+          "name": "vae_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "vae_name"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "VAE",
+          "localized_name": "VAE",
+          "name": "VAE",
+          "type": "VAE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "widget_ue_connectable": {
+          "vae_name": true
+        },
+        "models": [
+          {
+            "name": "minimax_h3_video_vae_fp16.safetensors",
+            "directory": "vae",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_fp16.safetensors"
+          }
+        ],
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        }
+      },
+      "widgets_values": [
+        "minimax\\minimax_h3_video_vae_fp16.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "minimax\\minimax_h3_video_vae_fp16.safetensors"
+      }
+    },
+    {
+      "id": 7,
+      "type": "CreateVideo",
+      "pos": [
+        1020.0,
+        1000.0
+      ],
+      "size": [
+        270,
+        126
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "images",
+          "localized_name": "图像",
+          "name": "images",
+          "type": "IMAGE",
+          "link": 3
+        },
+        {
+          "label": "audio",
+          "localized_name": "音频",
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 4
+        },
+        {
+          "label": "fps",
+          "localized_name": "帧率",
+          "name": "fps",
+          "type": "FLOAT",
+          "widget": {
+            "name": "fps"
+          },
+          "link": null
+        },
+        {
+          "label": "bit_depth",
+          "localized_name": "bit_depth",
+          "name": "bit_depth",
+          "shape": 7,
+          "type": "COMBO",
+          "widget": {
+            "name": "bit_depth"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "color_space",
+          "name": "color_space",
+          "shape": 7,
+          "type": "COMBO",
+          "widget": {
+            "name": "color_space"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "VIDEO",
+          "localized_name": "视频",
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CreateVideo",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "widget_ue_connectable": {
+          "fps": true,
+          "bit_depth": true
+        },
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        }
+      },
+      "widgets_values": [
+        24,
+        8,
+        "sRGB"
+      ],
+      "widgets_values_named": {
+        "fps": 24,
+        "bit_depth": 8,
+        "color_space": "sRGB"
+      }
+    },
+    {
+      "id": 8,
+      "type": "SaveVideo",
+      "pos": [
+        1020.0,
+        1120.0
+      ],
+      "size": [
+        210,
+        126
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "video",
+          "localized_name": "视频",
+          "name": "video",
+          "type": "VIDEO",
+          "link": 8
+        },
+        {
+          "label": "filename_prefix",
+          "localized_name": "文件名前缀",
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
+        },
+        {
+          "label": "format",
+          "localized_name": "格式",
+          "name": "format",
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "widget": {
+            "name": "format"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "format.codec",
+          "name": "format.codec",
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "widget": {
+            "name": "format.codec"
+          },
+          "link": null
+        },
+        {
+          "label": "codec",
+          "localized_name": "编码器",
+          "name": "codec",
+          "shape": 7,
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "widget": {
+            "name": "codec"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "video",
+          "localized_name": "video",
+          "name": "video",
+          "type": "VIDEO"
+        },
+        {
+          "label": "video",
+          "name": "video",
+          "type": "VIDEO"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveVideo",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "widget_ue_connectable": {
+          "codec": true,
+          "filename_prefix": true,
+          "format": true
+        },
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        }
+      },
+      "widgets_values": [
+        "video/MiniMax_H3",
+        "auto",
+        "auto",
+        "auto"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "video/MiniMax_H3",
+        "format": "auto",
+        "format.codec": "auto",
+        "codec": "auto"
+      }
+    },
+    {
+      "id": 9,
+      "type": "MiniMaxReferenceItem",
+      "pos": [
+        40.0,
+        800.0
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "前序配置",
+          "localized_name": "前序配置",
+          "name": "前序配置",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        },
+        {
+          "label": "参考维度",
+          "localized_name": "参考维度",
+          "name": "参考维度",
+          "type": "COMBO",
+          "widget": {
+            "name": "参考维度"
+          },
+          "link": null
+        },
+        {
+          "label": "序号",
+          "localized_name": "序号",
+          "name": "序号",
+          "type": "COMBO",
+          "widget": {
+            "name": "序号"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "参考配置(JSON数组)",
+          "localized_name": "参考配置(JSON数组)",
+          "name": "参考配置(JSON数组)",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MiniMaxReferenceItem"
+      },
+      "widgets_values": [
+        "音频：人声/音色",
+        "1"
+      ],
+      "widgets_values_named": {
+        "参考维度": "音频：人声/音色",
+        "序号": "1"
+      },
+      "title": "参考配置（音频：人声/音色）"
+    },
+    {
+      "id": 11,
+      "type": "ComfyMathExpression",
+      "pos": [
+        420.0,
+        1360.0
+      ],
+      "size": [
+        230,
+        120
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "values.a",
+          "localized_name": "values.a",
+          "name": "values.a",
+          "type": "FLOAT,INT,BOOLEAN",
+          "link": 9
+        },
+        {
+          "label": "b",
+          "localized_name": "values.b",
+          "name": "values.b",
+          "shape": 7,
+          "type": "FLOAT,INT,BOOLEAN",
+          "link": null
+        },
+        {
+          "label": "expression",
+          "localized_name": "表达式",
+          "name": "expression",
+          "type": "STRING",
+          "widget": {
+            "name": "expression"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "FLOAT",
+          "localized_name": "浮点",
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": []
+        },
+        {
+          "label": "INT",
+          "localized_name": "整数",
+          "name": "INT",
+          "type": "INT",
+          "links": []
+        },
+        {
+          "label": "BOOL",
+          "localized_name": "布尔值",
+          "name": "BOOL",
+          "type": "BOOLEAN",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ComfyMathExpression",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "widget_ue_connectable": {
+          "expression": true
+        },
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        }
+      },
+      "widgets_values": [
+        "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17"
+      ],
+      "widgets_values_named": {
+        "expression": "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17"
+      }
+    },
+    {
+      "id": 13,
+      "type": "PrimitiveFloat",
+      "pos": [
+        420.0,
+        1260.0
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "value",
+          "localized_name": "值",
+          "name": "value",
+          "type": "FLOAT",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "FLOAT",
+          "localized_name": "浮点",
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveFloat",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.2"
+      },
+      "widgets_values": [
+        10
+      ],
+      "widgets_values_named": {
+        "value": 10
+      }
+    },
+    {
+      "id": 14,
+      "type": "ResolutionSelector",
+      "pos": [
+        420.0,
+        1120.0
+      ],
+      "size": [
+        270,
+        170
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "showAdvanced": false,
+      "inputs": [
+        {
+          "label": "aspect_ratio",
+          "localized_name": "宽高比",
+          "name": "aspect_ratio",
+          "type": "COMBO",
+          "widget": {
+            "name": "aspect_ratio"
+          },
+          "link": null
+        },
+        {
+          "label": "megapixels",
+          "localized_name": "百万像素",
+          "name": "megapixels",
+          "type": "FLOAT",
+          "widget": {
+            "name": "megapixels"
+          },
+          "link": null
+        },
+        {
+          "label": "multiple",
+          "localized_name": "倍数",
+          "name": "multiple",
+          "type": "INT",
+          "widget": {
+            "name": "multiple"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "width",
+          "localized_name": "宽度",
+          "name": "width",
+          "type": "INT",
+          "links": []
+        },
+        {
+          "label": "height",
+          "localized_name": "高度",
+          "name": "height",
+          "type": "INT",
+          "links": []
+        }
+      ],
+      "title": "Resolution Selector (Size)",
+      "properties": {
+        "Node name for S&R": "ResolutionSelector",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "widget_ue_connectable": {
+          "aspect_ratio": true,
+          "megapixels": true,
+          "multiple": true
+        },
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        }
+      },
+      "widgets_values": [
+        "1:1 (Square)",
+        0.5,
+        32
+      ],
+      "widgets_values_named": {
+        "aspect_ratio": "1:1 (Square)",
+        "megapixels": 0.5,
+        "multiple": 32
+      },
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 15,
+      "type": "LoadImage",
+      "pos": [
+        40.0,
+        100.0
+      ],
+      "size": [
+        289.2667114257813,
+        393.7999999999993
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "image",
+          "localized_name": "图像",
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "label": "upload",
+          "localized_name": "选择文件上传",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "IMAGE",
+          "localized_name": "图像",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "label": "MASK",
+          "localized_name": "遮罩",
+          "name": "MASK",
+          "type": "MASK"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "widget_ue_connectable": {
+          "image": true,
+          "upload": true
+        },
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        }
+      },
+      "widgets_values": [
+        "",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "",
+        "upload": "image"
+      },
+      "title": "参考图片"
+    },
+    {
+      "id": 16,
+      "type": "LoadAudio",
+      "pos": [
+        40.0,
+        560.0
+      ],
+      "size": [
+        336.68995199999995,
+        149.44839741833493
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "audio",
+          "localized_name": "音频",
+          "name": "audio",
+          "type": "COMBO",
+          "widget": {
+            "name": "audio"
+          },
+          "link": null
+        },
+        {
+          "label": "audioUI",
+          "localized_name": "音频UI",
+          "name": "audioUI",
+          "type": "AUDIO_UI",
+          "widget": {
+            "name": "audioUI"
+          },
+          "link": null
+        },
+        {
+          "label": "upload",
+          "localized_name": "选择文件上传",
+          "name": "upload",
+          "type": "AUDIOUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "AUDIO",
+          "localized_name": "音频",
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadAudio",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "ue_properties": {
+          "version": "7.8",
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "",
+        null,
+        null
+      ],
+      "widgets_values_named": {
+        "audio": "",
+        "upload": null
+      },
+      "title": "参考音频（人声音色）"
+    },
+    {
+      "id": 19,
+      "type": "MiniMaxVideoDirector",
+      "pos": [
+        420.0,
+        100.0
+      ],
+      "size": [
+        400,
+        360
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "图片1",
+          "localized_name": "图片1",
+          "name": "图片1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 17
+        },
+        {
+          "label": "图片2",
+          "localized_name": "图片2",
+          "name": "图片2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "label": "图片3",
+          "localized_name": "图片3",
+          "name": "图片3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "label": "视频1",
+          "localized_name": "视频1",
+          "name": "视频1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "label": "参考配置",
+          "localized_name": "参考配置",
+          "name": "参考配置",
+          "shape": 7,
+          "type": "STRING",
+          "link": 16
+        },
+        {
+          "label": "接口地址",
+          "localized_name": "接口地址",
+          "name": "接口地址",
+          "type": "STRING",
+          "widget": {
+            "name": "接口地址"
+          },
+          "link": null
+        },
+        {
+          "label": "模型精度",
+          "localized_name": "模型精度",
+          "name": "模型精度",
+          "type": "COMBO",
+          "widget": {
+            "name": "模型精度"
+          },
+          "link": null
+        },
+        {
+          "label": "模式",
+          "localized_name": "模式",
+          "name": "模式",
+          "type": "COMBO",
+          "widget": {
+            "name": "模式"
+          },
+          "link": null
+        },
+        {
+          "label": "文案模板",
+          "localized_name": "文案模板",
+          "name": "文案模板",
+          "type": "COMBO",
+          "widget": {
+            "name": "文案模板"
+          },
+          "link": null
+        },
+        {
+          "label": "故事指令",
+          "localized_name": "故事指令",
+          "name": "故事指令",
+          "type": "STRING",
+          "widget": {
+            "name": "故事指令"
+          },
+          "link": null
+        },
+        {
+          "label": "视频时长",
+          "localized_name": "视频时长",
+          "name": "视频时长",
+          "type": "FLOAT",
+          "widget": {
+            "name": "视频时长"
+          },
+          "link": 18
+        },
+        {
+          "label": "锁定提示词",
+          "localized_name": "锁定提示词",
+          "name": "锁定提示词",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "锁定提示词"
+          },
+          "link": null
+        },
+        {
+          "label": "保持运行",
+          "localized_name": "保持运行",
+          "name": "保持运行",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "保持运行"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "MiniMax提示词",
+          "localized_name": "MiniMax提示词",
+          "name": "MiniMax提示词",
+          "type": "STRING",
+          "links": []
+        },
+        {
+          "label": "调试日志",
+          "localized_name": "调试日志",
+          "name": "调试日志",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MiniMaxVideoDirector"
+      },
+      "widgets_values": [
+        "http://127.0.0.1:8080",
+        "速度",
+        "首帧生成",
+        "文戏模式",
+        "",
+        5,
+        true,
+        false
+      ],
+      "widgets_values_named": {
+        "接口地址": "http://127.0.0.1:8080",
+        "模型精度": "速度",
+        "模式": "首帧生成",
+        "文案模板": "文戏模式",
+        "故事指令": "",
+        "视频时长": 5,
+        "锁定提示词": true,
+        "保持运行": false
+      },
+      "title": "MiniMax 视频导演（可选：一句话生成 H3 提示词）"
+    },
+    {
+      "id": 20,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        420.0,
+        520.0
+      ],
+      "size": [
+        444.2748092701054,
+        525.2367718782016
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 28,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "value",
+          "localized_name": "值",
+          "name": "value",
+          "type": "STRING",
+          "widget": {
+            "name": "value"
+          },
+          "link": 21
+        }
+      ],
+      "outputs": [
+        {
+          "label": "STRING",
+          "localized_name": "字符串",
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "title": "提示词（手写；或由导演生成后自动覆盖）",
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "widget_ue_connectable": {
+          "value": true
+        },
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        }
+      },
+      "widgets_values": [
+        "integrated_multimodal_description: [Shot 1] at 00:00.000 — fixed single-shot, no camera movement. The character from <Picture 1> stands in a bright room beside a window, holding a folded letter and looking down at it with a faint smile; soft daylight, slight hair movement, plain background.\n(Speaker 1) says in Chinese: 「我们以后再见。」\n\n【示例文本，请替换】上方接「MiniMax视频导演」时会由导演自动覆盖本行；若要手写，断开导演连线即可。"
+      ],
+      "widgets_values_named": {
+        "value": "integrated_multimodal_description: [Shot 1] at 00:00.000 — fixed single-shot, no camera movement. The character from <Picture 1> stands in a bright room beside a window, holding a folded letter and looking down at it with a faint smile; soft daylight, slight hair movement, plain background.\n(Speaker 1) says in Chinese: 「我们以后再见。」\n\n【示例文本，请替换】上方接「MiniMax视频导演」时会由导演自动覆盖本行；若要手写，断开导演连线即可。"
+      },
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 22,
+      "type": "CLIPLoader",
+      "pos": [
+        40.0,
+        940.0
+      ],
+      "size": [
+        640,
+        120
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "clip_name",
+          "localized_name": "CLIP名称",
+          "name": "clip_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "clip_name"
+          },
+          "link": null
+        },
+        {
+          "label": "type",
+          "localized_name": "类型",
+          "name": "type",
+          "type": "COMBO",
+          "widget": {
+            "name": "type"
+          },
+          "link": null
+        },
+        {
+          "label": "device",
+          "localized_name": "设备",
+          "name": "device",
+          "shape": 7,
+          "type": "COMBO",
+          "widget": {
+            "name": "device"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "CLIP",
+          "localized_name": "CLIP",
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "widget_ue_connectable": {
+          "clip_name": true,
+          "type": true,
+          "device": true
+        },
+        "models": [
+          {
+            "name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+            "directory": "text_encoders",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors"
+          }
+        ],
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        }
+      },
+      "widgets_values": [
+        "minimax\\qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+        "minimax",
+        "default"
+      ],
+      "widgets_values_named": {
+        "clip_name": "minimax\\qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+        "type": "minimax",
+        "device": "default"
+      }
+    },
+    {
+      "id": 23,
+      "type": "MiniMaxH3ReferenceToVideo",
+      "pos": [
+        900.0,
+        100.0
+      ],
+      "size": [
+        410,
+        364
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "clip",
+          "localized_name": "clip",
+          "name": "clip",
+          "type": "CLIP",
+          "link": 20
+        },
+        {
+          "label": "vae",
+          "localized_name": "vae",
+          "name": "vae",
+          "type": "VAE",
+          "link": 5
+        },
+        {
+          "label": "audio_vae",
+          "localized_name": "audio_vae",
+          "name": "audio_vae",
+          "type": "VAE",
+          "link": 6
+        },
+        {
+          "label": "ref_images.ref_image_0",
+          "localized_name": "ref_images.ref_image_0",
+          "name": "ref_images.ref_image_0",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 7
+        },
+        {
+          "label": "ref_image_1",
+          "localized_name": "ref_images.ref_image_1",
+          "name": "ref_images.ref_image_1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "label": "ref_videos.ref_video_0",
+          "localized_name": "ref_videos.ref_video_0",
+          "name": "ref_videos.ref_video_0",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "label": "ref_video_audios.ref_video_audio_0",
+          "localized_name": "ref_video_audios.ref_video_audio_0",
+          "name": "ref_video_audios.ref_video_audio_0",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 19
+        },
+        {
+          "label": "ref_video_audio_1",
+          "localized_name": "ref_video_audios.ref_video_audio_1",
+          "name": "ref_video_audios.ref_video_audio_1",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "label": "ref_audios.ref_audio_0",
+          "localized_name": "ref_audios.ref_audio_0",
+          "name": "ref_audios.ref_audio_0",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "label": "prompt",
+          "localized_name": "prompt",
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 10
+        },
+        {
+          "label": "width",
+          "localized_name": "width",
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 11
+        },
+        {
+          "label": "height",
+          "localized_name": "height",
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 12
+        },
+        {
+          "label": "length",
+          "localized_name": "length",
+          "name": "length",
+          "type": "INT",
+          "widget": {
+            "name": "length"
+          },
+          "link": 13
+        },
+        {
+          "label": "ref_image_size",
+          "localized_name": "ref_image_size",
+          "name": "ref_image_size",
+          "type": "COMBO",
+          "widget": {
+            "name": "ref_image_size"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "positive",
+          "localized_name": "positive",
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": []
+        },
+        {
+          "label": "LATENT",
+          "localized_name": "Latent",
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MiniMaxH3ReferenceToVideo",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "ue_properties": {
+          "version": "7.8",
+          "widget_ue_connectable": {
+            "width": true,
+            "length": true,
+            "prompt": true,
+            "height": true
+          },
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "",
+        1344,
+        768,
+        124,
+        "match"
+      ],
+      "widgets_values_named": {
+        "prompt": "",
+        "width": 1344,
+        "height": 768,
+        "length": 124,
+        "ref_image_size": "match"
+      },
+      "title": "H3 参考生视频（本地：编码 positive + 空 AV latent）"
+    },
+    {
+      "id": 24,
+      "type": "VAEDecode",
+      "pos": [
+        900.0,
+        880.0
+      ],
+      "size": [
+        230,
+        60
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "samples",
+          "localized_name": "Latent",
+          "name": "samples",
+          "type": "LATENT",
+          "link": 28
+        },
+        {
+          "label": "vae",
+          "localized_name": "vae",
+          "name": "vae",
+          "type": "VAE",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "label": "IMAGE",
+          "localized_name": "图像",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "widget_ue_connectable": {},
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        }
+      },
+      "title": "VAEDecode（视频）"
+    },
+    {
+      "id": 25,
+      "type": "VAEDecodeAudio",
+      "pos": [
+        1240.0,
+        880.0
+      ],
+      "size": [
+        230,
+        60
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "samples",
+          "localized_name": "Latent",
+          "name": "samples",
+          "type": "LATENT",
+          "link": 29
+        },
+        {
+          "label": "vae",
+          "localized_name": "vae",
+          "name": "vae",
+          "type": "VAE",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "label": "AUDIO",
+          "localized_name": "音频",
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecodeAudio",
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "widget_ue_connectable": {},
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        }
+      },
+      "title": "VAEDecodeAudio（音频）"
+    },
+    {
+      "id": 26,
+      "type": "CloudPipeAsyncH3",
+      "pos": [
+        900.0,
+        520.0
+      ],
+      "size": [
+        270,
+        222
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "positive",
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 25
+        },
+        {
+          "localized_name": "latent",
+          "name": "latent",
+          "type": "LATENT",
+          "link": 26
+        },
+        {
+          "localized_name": "种子",
+          "name": "种子",
+          "type": "INT",
+          "widget": {
+            "name": "种子"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "步骤",
+          "name": "步骤",
+          "shape": 7,
+          "type": "INT",
+          "widget": {
+            "name": "步骤"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "采样器",
+          "name": "采样器",
+          "shape": 7,
+          "type": "COMBO",
+          "widget": {
+            "name": "采样器"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "调度器",
+          "name": "调度器",
+          "shape": 7,
+          "type": "COMBO",
+          "widget": {
+            "name": "调度器"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "降噪",
+          "name": "降噪",
+          "shape": 7,
+          "type": "FLOAT",
+          "widget": {
+            "name": "降噪"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "切分步数",
+          "name": "切分步数",
+          "shape": 7,
+          "type": "INT",
+          "widget": {
+            "name": "切分步数"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "Latent",
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": []
+        },
+        {
+          "localized_name": "结果",
+          "name": "结果",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CloudPipeAsyncH3"
+      },
+      "widgets_values": [
+        326779663845019,
+        "randomize",
+        12,
+        "res_multistep",
+        "beta",
+        1,
+        8
+      ],
+      "widgets_values_named": {
+        "种子": 326779663845019,
+        "control_after_generate": "randomize",
+        "步骤": 12,
+        "采样器": "res_multistep",
+        "调度器": "beta",
+        "降噪": 1,
+        "切分步数": 8
+      },
+      "title": "A·云端协作（上传 → 云端采样 → 回传）"
+    },
+    {
+      "id": 27,
+      "type": "LTXVSeparateAVLatent",
+      "pos": [
+        900.0,
+        790.0
+      ],
+      "size": [
+        186.7154296875,
+        46
+      ],
+      "flags": {},
+      "order": 44,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "av_latent",
+          "localized_name": "音视频潜空间",
+          "name": "av_latent",
+          "type": "LATENT",
+          "link": 27
+        }
+      ],
+      "outputs": [
+        {
+          "label": "video_latent",
+          "localized_name": "video_latent",
+          "name": "video_latent",
+          "type": "LATENT",
+          "links": []
+        },
+        {
+          "label": "audio_latent",
+          "localized_name": "audio_latent",
+          "name": "audio_latent",
+          "type": "LATENT",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.33.0",
+        "Node name for S&R": "LTXVSeparateAVLatent",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.5.2"
+        },
+        "widget_ue_connectable": {}
+      },
+      "color": "#223",
+      "bgcolor": "#335",
+      "title": "拆分回传的 AV latent"
+    }
+  ],
+  "links": [
+    [
+      1,
+      3,
+      0,
+      25,
+      1,
+      "VAE"
+    ],
+    [
+      2,
+      4,
+      0,
+      24,
+      1,
+      "VAE"
+    ],
+    [
+      3,
+      24,
+      0,
+      7,
+      0,
+      "IMAGE"
+    ],
+    [
+      4,
+      25,
+      0,
+      7,
+      1,
+      "AUDIO"
+    ],
+    [
+      5,
+      4,
+      0,
+      23,
+      1,
+      "VAE"
+    ],
+    [
+      6,
+      3,
+      0,
+      23,
+      2,
+      "VAE"
+    ],
+    [
+      7,
+      15,
+      0,
+      23,
+      3,
+      "IMAGE"
+    ],
+    [
+      8,
+      7,
+      0,
+      8,
+      0,
+      "VIDEO"
+    ],
+    [
+      9,
+      13,
+      0,
+      11,
+      0,
+      "FLOAT,INT,BOOLEAN"
+    ],
+    [
+      10,
+      20,
+      0,
+      23,
+      9,
+      "STRING"
+    ],
+    [
+      11,
+      14,
+      0,
+      23,
+      10,
+      "INT"
+    ],
+    [
+      12,
+      14,
+      1,
+      23,
+      11,
+      "INT"
+    ],
+    [
+      13,
+      11,
+      1,
+      23,
+      12,
+      "INT"
+    ],
+    [
+      16,
+      9,
+      0,
+      19,
+      4,
+      "STRING"
+    ],
+    [
+      17,
+      15,
+      0,
+      19,
+      0,
+      "IMAGE"
+    ],
+    [
+      18,
+      13,
+      0,
+      19,
+      10,
+      "FLOAT"
+    ],
+    [
+      19,
+      16,
+      0,
+      23,
+      6,
+      "AUDIO"
+    ],
+    [
+      20,
+      22,
+      0,
+      23,
+      0,
+      "CLIP"
+    ],
+    [
+      21,
+      19,
+      0,
+      20,
+      0,
+      "STRING"
+    ],
+    [
+      25,
+      23,
+      0,
+      26,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      26,
+      23,
+      1,
+      26,
+      1,
+      "LATENT"
+    ],
+    [
+      27,
+      26,
+      0,
+      27,
+      0,
+      "LATENT"
+    ],
+    [
+      28,
+      27,
+      0,
+      24,
+      0,
+      "LATENT"
+    ],
+    [
+      29,
+      27,
+      1,
+      25,
+      0,
+      "LATENT"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

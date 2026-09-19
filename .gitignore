@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# 本地连接配置（含加密密码，绝不提交）
+config/
+cloud_comfy.json
+# 示例工作流需要提交（放行 examples/ 下所有 json）
+!examples/**
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 临时
+*.log
+
+# 开发期临时调试脚本（不提交）
+probe_*.py
+build_sage*.py
+install_sage*.py
+launch_comfy*.py
+verify_*.py
+prep_sage.py
+_wf_probe_remote.py
+check_progress.py
+restart_comfy*.py
